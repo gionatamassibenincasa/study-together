@@ -1,0 +1,1344 @@
+= StudyTogether — Specifica dei Requisiti del Software
+:doctype: book
+:toc: left
+:toc-title: Indice
+:toclevels: 3
+:sectnums:
+:sectnumlevels: 3
+:icons: font
+:source-highlighter: highlight.js
+:lang: it
+:encoding: utf-8
+:version: 1.0
+:date: 26/03/2026
+:revnumber: 1.0
+:revdate: 26/03/2026
+:revremark: Prima emissione
+:author: 3B AFM
+:docinfo: shared
+:imagesdir: images
+:experimental:
+:table-caption: Tabella
+:figure-caption: Figura
+:appendix-caption: Appendice
+
+[.lead]
+*App per la Gestione Collaborativa delle Interrogazioni Programmate* +
+Realizzata con AppLab di Code.org — Scuola Secondaria di Secondo Grado
+
+---
+
+[cols="1,2", options="header", width="60%"]
+|===
+| Campo | Valore
+| Versione        | {version}
+| Data            | {date}
+| Destinatari     | Studenti — Scuola Secondaria II Grado
+| Piattaforma     | AppLab -- Code.org
+| Paradigma       | App Data-Driven per Smartphone
+| Lingua          | Italiano
+|===
+
+<<<
+
+== Introduzione
+
+=== Scopo del Documento
+
+Il presente documento costituisce la *Specifica dei Requisiti del Software (SRS)* per l'applicazione *StudyTogether*, sviluppata con la piattaforma AppLab di Code.org.
+La SRS definisce in modo formale e completo le funzionalità, i vincoli e i comportamenti attesi dell'applicazione, servendo come riferimento contrattuale tra il team di sviluppo e gli utenti destinatari.
+
+Lo standard di riferimento adottato è **ISO/IEC/IEEE 29148:2018** — _Systems and software engineering — Requirements engineering_.
+
+=== Scopo dell'Applicazione e Visione Collaborativa
+
+StudyTogether nasce dall'idea che lo studio non debba essere un atto isolato e solitario, bensì un *flusso di lavoro condiviso e comunitario*.
+L'informatica è qui intesa non come fine, ma come *mezzo di collaborazione e cooperazione tra pari*.
+
+L'app trasforma la classe in una **Comunità di Pratica** (Lave & Wenger, 1991): uno spazio in cui la conoscenza non è detenuta da pochi, ma circola, si costruisce collettivamente e si consolida attraverso la partecipazione attiva di ogni studente.
+
+Le interrogazioni programmate — tradizionalmente vissute come momenti di ansia e competizione — diventano *occasioni di apprendimento cooperativo*: gli studenti gestiscono insieme il calendario delle verifiche, si candidano consapevolmente, condividono quesiti di studio e organizzano la conoscenza per argomento e materia.
+
+=== Ambito di Applicazione
+
+L'applicazione è destinata agli studenti delle classi della scuola secondaria di secondo grado (licei, istituti tecnici, istituti professionali).
+Il contesto d'uso è quello della *singola classe scolastica* che adotta l'app come strumento condiviso di autogestione dello studio.
+La piattaforma AppLab di Code.org consente lo sviluppo di app data-driven per smartphone con un database integrato, rendendola adatta a questo caso d'uso didattico.
+
+=== Glossario
+
+[cols="1,3", options="header"]
+|===
+| Termine | Definizione
+
+| Studente
+| Alunno iscritto alla classe, utente principale dell'applicazione.
+
+| Materia
+| Disciplina scolastica del monte ore (es. Matematica, Italiano, Storia).
+
+| Argomento
+| Sottounità di contenuto appartenente a una specifica materia.
+
+| Quesito
+| Domanda o problema di studio associato a un argomento.
+
+| Materiale didattico
+| Libro, sito web, articolo, rivista, video o podcast utilizzato come riferimento per lo studio.
+
+| Riferimento
+| Riferimento ad una porzione (intervallo di pagine, capitolo, sezione, intervallo di tempo) di un materiale didattico.
+
+| Interrogazione
+| Verifica orale, programmata o meno, che si riferisce ad uno o più argomenti di una stessa materia.
+
+| Interrogazione Programmata
+| Interrogazione pianificata, con data, ora e numero massimo di interrogati.
+
+| Candidatura
+| Atto con cui uno studente si propone volontariamente per un'interrogazione.
+
+| Comunità di Pratica
+| Gruppo di persone che condividono un interesse e imparano insieme attraverso la pratica (Lave & Wenger).
+
+| AppLab
+| Ambiente di sviluppo di Code.org per app data-driven per smartphone.
+
+| Database
+| Archivio dati strutturato integrato nell'applicazione AppLab.
+
+| FK
+| Foreign Key — chiave esterna che referenzia un record di un'altra tabella.
+|===
+
+=== Riferimenti
+
+* Lave, J. & Wenger, E. (1991). _Situated Learning: Legitimate Peripheral Participation_. Cambridge University Press.
+* Johnson, D.W. & Johnson, R.T. (1989). _Cooperation and Competition: Theory and Research_. Interaction Book Company.
+* Code.org — AppLab Documentation: https://code.org/educate/applab
+* ISO/IEC/IEEE 29148:2018 — _Systems and software engineering — Requirements engineering_.
+
+<<<
+
+== Descrizione Generale del Sistema
+
+=== Prospettiva del Sistema
+
+StudyTogether è un'applicazione standalone per smartphone, sviluppata interamente su AppLab (Code.org).
+Utilizza il database integrato della piattaforma per la persistenza dei dati.
+Non richiede connessione a server esterni né autenticazione con account personali: il modello è quello di un'app *condivisa dalla classe*, installata (o accessibile via browser) su dispositivi mobili individuali. Sta alla responsabilità degli studenti agire in modo etico.
+
+=== Funzionalità Principali
+
+Le funzionalità principali consistono nell'inizializzazione dell'applicazione (inserimento di: anagrafiche degli studenti, materie, argomenti, quesiti, materiali didattici), nella gestione delle interrogazioni programmate (creazione, visualizzazione, candidatura), nella gestione delle interrogazioni svolte (tipo di candidato, studenti interrogati) e nella visualizzazione del calendario condiviso. In sintesi, le funzionalità chiave sono:
+
+* Gestione anagrafica degli studenti della classe
+* Catalogazione delle materie per le quali sono previste interrogazioni
+* Organizzazione gerarchica degli argomenti per materia
+* Archiviazione dei quesiti di studio per argomento
+* Archiviazione dei materiali didattici
+* Archiviazione dei riferimenti specifici che legano i quesiti ai materiali didattici
+* Pianificazione delle interrogazioni programmate con data, ora e numero di posti
+* Registrazione delle interrogazioni svolte con indicazione degli studenti effettivamente interrogati
+* Visualizzazione del calendario delle interrogazioni
+* Candidatura spontanea degli studenti alle interrogazioni
+* Visualizzazione dei candidati per ogni interrogazione
+* Visualizzazione degli studenti in attesa di interrogazione su un argomento
+
+=== Caratteristiche degli Utenti
+
+L'unico profilo utente previsto è lo **Studente**.
+Non è prevista una distinzione tra amministratori e utenti ordinari: la filosofia cooperativa dell'app prevede che tutti i membri della classe abbiano gli stessi diritti e responsabilità.
+Ogni studente può inserire, visualizzare e candidarsi liberamente.
+
+=== Vincoli e Assunzioni
+
+* Sviluppo esclusivo su piattaforma AppLab di Code.org.
+* Utilizzo del database integrato di AppLab (API: `insertRecord`, `getRecords`, `updateRecord`, `deleteRecord`).
+* Interfaccia ottimizzata per smartphone (schermo verticale, touch-first, dimensioni 320x450px).
+* Nessun sistema di autenticazione individuale: responsabilità condivisa dei dati.
+* Lingua dell'interfaccia: Italiano.
+* L'app è pensata per essere usata da una singola classe per volta.
+
+<<<
+
+== Diagramma dei Casi d'Uso (Use Case Diagram)
+
+=== Schema del Diagramma
+
+Il seguente schema rappresenta il diagramma dei casi d'uso dell'applicazione StudyTogether.
+L'unico attore è lo **Studente**, che interagisce con tutti i casi d'uso del sistema.
+
+[plantuml, usecase-diagram, svg]
+....
+@startuml
+skinparam actorStyle awesome
+skinparam usecase {
+  BackgroundColor #D0E4F5
+  BorderColor #2E6DA4
+  FontColor #1A3A5C
+}
+skinparam rectangle {
+  BackgroundColor #F2F6FA
+  BorderColor #4A90D9
+}
+
+title Use Case Diagram — StudyTogether
+
+actor ":Studente" as S
+
+rectangle "StudyTogether" {
+  usecase "UC1\nInserisce Studenti"          as UC1
+  usecase "UC2\nInserisce Materie"           as UC2
+  usecase "UC3\nInserisce Argomenti"         as UC3
+  usecase "UC4\nInserisce Quesiti"           as UC4
+  usecase "UC5\nInserisce Interrogazione\nProgrammata" as UC5
+  usecase "UC6\nVisualizza Interrogazione\nProgrammata" as UC6
+  usecase "UC7\nSi candida per\nInterrogazione" as UC7
+  usecase "UC8\nInserisce Materiale\nDidattico" as UC8
+  usecase "UC9\nInserisce Riferimento"       as UC9
+  usecase "UC10\nRegistra Interrogazione\nSvolta" as UC10
+  usecase "UC11\nVisualizza Studenti\nin Attesa" as UC11
+}
+
+S -- UC1
+S -- UC2
+S -- UC3
+S -- UC4
+S -- UC5
+S -- UC6
+S -- UC7
+S -- UC8
+S -- UC9
+S -- UC10
+S -- UC11
+
+UC7 .> UC6 : <<include>>
+UC9 .> UC4 : <<extend>>
+
+@enduml
+....
+
+NOTE: Il diagramma PlantUML può essere renderizzato con `asciidoctor-diagram`. +
+In alternativa, la rappresentazione testuale è disponibile nella sezione successiva.
+
+=== Rappresentazione Testuale del Diagramma
+
+[listing]
+----
+  ┌─────────────────────────────────────────────────────────┐
+  │                   <<system>> StudyTogether              │
+  │                                                         │
+  │  (UC1)  Inserisce Studenti                              │
+  │  (UC2)  Inserisce Materie                               │
+  │  (UC3)  Inserisce Argomenti                             │
+  │  (UC4)  Inserisce Quesiti                               │
+  │  (UC5)  Inserisce Interrogazione Programmata            │
+  │  (UC6)  Visualizza Interrogazione Programmata           │
+  │  (UC7)  Si candida          UC7 <<include>> UC6         │
+  │  (UC8)  Inserisce Materiale Didattico                   │
+  │  (UC9)  Inserisce Riferimento  UC9 <<extend>> UC4       │
+  │  (UC10) Registra Interrogazione Svolta                  │
+  │  (UC11) Visualizza Studenti in Attesa                   │
+  └─────────────────────────────────────────────────────────┘
+                            │
+                     ┌──────┴──────┐
+                     │  :Studente  │
+                     │   (  O  )   │
+                     │    ─|─      │
+                     │    / \      │
+                     └─────────────┘
+----
+
+=== Descrizione Analitica dei Casi d'Uso
+
+==== UC1 — Inserisce Studenti
+
+[cols="1,3", options="header", frame="all", grid="all"]
+|===
+| Campo | Descrizione
+
+| *ID Use Case*        | UC1
+| *Nome*               | Inserisce Studenti
+| *Attori*             | Studente
+| *Pre-condizioni*     | L'app è avviata. La lista studenti è vuota o parziale.
+| *Flusso principale*
+a|
+1. Lo studente accede alla sezione _Studenti_.
+2. Seleziona _Aggiungi studente_.
+3. Inserisce posizione, cognome e nome.
+4. Conferma il salvataggio.
+5. Il sistema aggiunge il record al database.
+| *Post-condizioni*    | Un nuovo studente è registrato nel sistema e appare nella lista della classe.
+| *Flussi alternativi* | *3a.* I campi sono incompleti: il sistema mostra un messaggio di errore e non salva.
+|===
+
+==== UC2 — Inserisce Materie
+
+[cols="1,3", options="header", frame="all", grid="all"]
+|===
+| Campo | Descrizione
+
+| *ID Use Case*        | UC2
+| *Nome*               | Inserisce Materie
+| *Attori*             | Studente
+| *Pre-condizioni*     | L'app è avviata.
+| *Flusso principale*
+a|
+1. Lo studente accede alla sezione _Materie_.
+2. Seleziona _Aggiungi materia_.
+3. Inserisce il codice materia e il nome della disciplina.
+4. Conferma.
+5. Il sistema salva la materia.
+| *Post-condizioni*    | La materia è disponibile per l'associazione con argomenti.
+| *Flussi alternativi* | *3a.* Codice materia già esistente: il sistema notifica il duplicato.
+|===
+
+==== UC3 — Inserisce Argomenti
+
+[cols="1,3", options="header", frame="all", grid="all"]
+|===
+| Campo | Descrizione
+
+| *ID Use Case*        | UC3
+| *Nome*               | Inserisce Argomenti
+| *Attori*             | Studente
+| *Pre-condizioni*     | Almeno una materia è presente nel sistema.
+| *Flusso principale*
+a|
+1. Lo studente accede alla sezione _Argomenti_.
+2. Seleziona _Aggiungi argomento_.
+3. Sceglie la materia di riferimento dal menu.
+4. Inserisce codice e descrizione dell'argomento.
+5. Conferma.
+6. Il sistema salva l'argomento associato alla materia.
+| *Post-condizioni*    | L'argomento è disponibile per la creazione di quesiti e interrogazioni.
+| *Flussi alternativi* | *3a.* Nessuna materia presente: il sistema invita a creare prima una materia.
+|===
+
+==== UC4 — Inserisce Quesiti
+
+[cols="1,3", options="header", frame="all", grid="all"]
+|===
+| Campo | Descrizione
+
+| *ID Use Case*        | UC4
+| *Nome*               | Inserisce Quesiti
+| *Attori*             | Studente
+| *Pre-condizioni*     | Almeno un argomento è presente nel sistema.
+| *Flusso principale*
+a|
+1. Lo studente accede alla sezione _Quesiti_.
+2. Seleziona _Aggiungi quesito_.
+3. Sceglie l'argomento dal menu.
+4. Inserisce il testo del quesito.
+5. Conferma.
+6. Il sistema salva il quesito.
+| *Post-condizioni*    | Il quesito è associato all'argomento e visibile nella scheda dell'interrogazione.
+| *Flussi alternativi* | *3a.* Nessun argomento presente: il sistema invita a crearne uno prima.
+|===
+
+==== UC5 — Inserisce Interrogazione Programmata
+
+[cols="1,3", options="header", frame="all", grid="all"]
+|===
+| Campo | Descrizione
+
+| *ID Use Case*        | UC5
+| *Nome*               | Inserisce Interrogazione Programmata
+| *Attori*             | Studente
+| *Pre-condizioni*     | Almeno un argomento è presente nel sistema.
+| *Flusso principale*
+a|
+1. Lo studente accede a _Interrogazioni_.
+2. Seleziona _Nuova interrogazione_.
+3. Seleziona la materia e uno o più argomenti della stessa materia.
+4. Inserisce data, ora, numero massimo di interrogati.
+5. Conferma.
+6. Il sistema genera un codice interrogazione, salva l'interrogazione e i riferimenti agli argomenti selezionati.
+| *Post-condizioni*    | L'interrogazione appare nel calendario condiviso della classe.
+| *Flussi alternativi*
+a|
+*4a.* Data nel passato: il sistema mostra un avviso. +
+*4b.* Numero interrogati ≤ 0: errore di validazione. +
+*3b.* Gli argomenti selezionati appartengono a materie diverse: il sistema mostra un errore.
+|===
+
+==== UC6 — Visualizza Interrogazione Programmata
+
+[cols="1,3", options="header", frame="all", grid="all"]
+|===
+| Campo | Descrizione
+
+| *ID Use Case*        | UC6
+| *Nome*               | Visualizza Interrogazione Programmata
+| *Attori*             | Studente
+| *Pre-condizioni*     | Almeno una interrogazione programmata esiste.
+| *Flusso principale*
+a|
+1. Lo studente accede alla sezione _Calendario_.
+2. Visualizza la lista delle interrogazioni ordinate per data.
+3. Seleziona un'interrogazione.
+4. Il sistema mostra: materia, argomenti, data, ora, posti disponibili, studenti già candidati, quesiti di studio associati.
+| *Post-condizioni*    | Lo studente ha una visione completa dell'interrogazione e dei quesiti da preparare.
+| *Flussi alternativi* | *1a.* Nessuna interrogazione presente: il sistema mostra un messaggio informativo.
+|===
+
+==== UC7 — Si Candida per Interrogazione Programmata
+
+[cols="1,3", options="header", frame="all", grid="all"]
+|===
+| Campo | Descrizione
+
+| *ID Use Case*        | UC7
+| *Nome*               | Si candida per Interrogazione Programmata
+| *Attori*             | Studente
+| *Pre-condizioni*     | Esiste almeno una interrogazione futura con posti disponibili.
+| *Flusso principale*
+a|
+1. Lo studente visualizza un'interrogazione (UC6).
+2. Seleziona _Candidati_.
+3. Sceglie il proprio nome dalla lista studenti.
+4. Conferma la candidatura.
+5. Il sistema registra l'assegnazione e aggiorna il conteggio dei posti.
+| *Post-condizioni*    | Lo studente risulta candidato. Il numero di posti disponibili si riduce di uno.
+| *Flussi alternativi*
+a|
+*3a.* Posti esauriti: il sistema informa che non è possibile candidarsi. +
+*3b.* Studente già candidato per questa interrogazione o per un'altra nella stessa data: il sistema avvisa del conflitto.
+|===
+
+<<<
+
+==== UC8 — Inserisce Materiale Didattico
+
+[cols="1,3", options="header", frame="all", grid="all"]
+|===
+| Campo | Descrizione
+
+| *ID Use Case*        | UC8
+| *Nome*               | Inserisce Materiale Didattico
+| *Attori*             | Studente
+| *Pre-condizioni*     | L'app è avviata.
+| *Flusso principale*
+a|
+1. Lo studente accede alla sezione _Materiali_.
+2. Seleziona _Aggiungi materiale_.
+3. Sceglie il tipo (libro, sito, articolo, rivista, video, podcast).
+4. Inserisce il titolo e, facoltativamente, autore e URL.
+5. Conferma.
+6. Il sistema salva il materiale didattico.
+| *Post-condizioni*    | Il materiale è disponibile per la creazione di riferimenti (UC9).
+| *Flussi alternativi* | *3a.* Tipo o titolo mancanti: il sistema mostra un messaggio di errore e non salva.
+|===
+
+==== UC9 — Inserisce Riferimento
+
+[cols="1,3", options="header", frame="all", grid="all"]
+|===
+| Campo | Descrizione
+
+| *ID Use Case*        | UC9
+| *Nome*               | Inserisce Riferimento
+| *Attori*             | Studente
+| *Pre-condizioni*     | Almeno un quesito e un materiale didattico sono presenti nel sistema.
+| *Flusso principale*
+a|
+1. Lo studente accede alla scheda di un quesito.
+2. Seleziona _Aggiungi riferimento_.
+3. Sceglie il materiale didattico dal menu.
+4. Inserisce il dettaglio del riferimento (es. "pp. 42–56", "cap. 3", "min 12:30--25:00").
+5. Conferma.
+6. Il sistema salva il riferimento.
+| *Post-condizioni*    | Il quesito è collegato al materiale con il dettaglio specificato.
+| *Flussi alternativi*
+a|
+*3a.* Nessun materiale disponibile: il sistema invita a inserire prima un materiale (UC8). +
+*4a.* Dettaglio mancante: il sistema mostra un messaggio di errore.
+|===
+
+==== UC10 — Registra Interrogazione Svolta
+
+[cols="1,3", options="header", frame="all", grid="all"]
+|===
+| Campo | Descrizione
+
+| *ID Use Case*        | UC10
+| *Nome*               | Registra Interrogazione Svolta
+| *Attori*             | Studente
+| *Pre-condizioni*     | Almeno un argomento e almeno uno studente sono presenti nel sistema.
+| *Flusso principale*
+a|
+1. Lo studente accede alla sezione _Interrogazioni_.
+2. Seleziona _Registra svolta_.
+3. Sceglie facoltativamente l'interrogazione programmata di riferimento.
+4. Seleziona gli argomenti trattati.
+5. Seleziona gli studenti effettivamente interrogati.
+6. Inserisce data e ora.
+7. Conferma.
+8. Il sistema salva l'interrogazione svolta, gli argomenti e gli studenti interrogati.
+| *Post-condizioni*    | L'interrogazione svolta è registrata. Le statistiche di attesa per argomento risultano aggiornate.
+| *Flussi alternativi*
+a|
+*4a.* Nessun argomento selezionato: il sistema mostra un errore. +
+*5a.* Nessuno studente selezionato: il sistema mostra un errore. +
+*6a.* Data nel futuro: il sistema mostra un avviso.
+|===
+
+==== UC11 — Visualizza Studenti in Attesa per Argomento
+
+[cols="1,3", options="header", frame="all", grid="all"]
+|===
+| Campo | Descrizione
+
+| *ID Use Case*        | UC11
+| *Nome*               | Visualizza Studenti in Attesa per Argomento
+| *Attori*             | Studente
+| *Pre-condizioni*     | Esistono candidature attive e almeno un'interrogazione svolta registrata.
+| *Flusso principale*
+a|
+1. Lo studente accede alla sezione _Argomenti_.
+2. Seleziona un argomento.
+3. Il sistema mostra la lista degli studenti candidati a un'interrogazione programmata che include quell'argomento ma non ancora risultanti in un'interrogazione svolta per lo stesso argomento.
+| *Post-condizioni*    | Lo studente ha visibilità di chi ancora attende di essere interrogato sull'argomento.
+| *Flussi alternativi* | *2a.* Nessuna candidatura attiva per l'argomento: il sistema mostra un messaggio informativo.
+|===
+
+<<<
+
+== Diagrammi di Sequenza (Sequence Diagrams)
+
+I diagrammi descrivono le interazioni temporali tra lo Studente, l'interfaccia dell'app (UI) e il database AppLab.
+
+=== SD-01 — Inserimento di uno Studente
+
+[plantuml, sd-inserimento-studente, svg]
+....
+@startuml
+skinparam sequenceArrowThickness 2
+skinparam roundcorner 8
+skinparam sequenceParticipant underline
+
+actor ":Studente" as S
+participant "UI App" as UI
+database "Database\nAppLab" as DB
+
+S -> UI : tap 'Studenti'
+UI -> DB : getRecords("Studente")
+DB --> UI : lista studenti
+UI --> S : mostra lista
+
+S -> UI : tap 'Aggiungi'
+UI --> S : mostra form
+
+S -> UI : inserisce (posizione, cognome, nome)
+UI -> UI : valida campi
+
+alt campi validi
+  UI -> DB : insertRecord("Studente", {pos, cognome, nome})
+  DB --> UI : OK
+  UI --> S : "Studente salvato!"
+else campi incompleti
+  UI --> S : messaggio di errore
+end
+@enduml
+....
+
+[listing]
+----
+  :Studente        UI App          Database
+       │               │               │
+       │ tap 'Studenti'│               │
+       │──────────────>│               │
+       │               │ getRecords()  │
+       │               │──────────────>│
+       │               │<──────────────│ lista studenti
+       │<──────────────│               │
+       │               │               │
+       │ tap 'Aggiungi'│               │
+       │──────────────>│               │
+       │<──────────────│ mostra form   │
+       │               │               │
+       │ inserisce dati│               │
+       │──────────────>│               │
+       │               │ valida campi  │
+       │               │ insertRecord()│
+       │               │──────────────>│
+       │               │<──────────────│ OK
+       │<──────────────│ feedback      │
+----
+
+=== SD-02 — Inserimento Interrogazione Programmata
+
+[plantuml, sd-inserimento-interrogazione, svg]
+....
+@startuml
+skinparam sequenceArrowThickness 2
+skinparam roundcorner 8
+
+actor ":Studente" as S
+participant "UI App" as UI
+database "Database\nAppLab" as DB
+
+S -> UI : tap 'Interrogazioni'
+UI -> DB : getRecords("Argomento")
+DB --> UI : lista argomenti
+UI -> DB : getRecords("Materia")
+DB --> UI : lista materie
+
+UI --> S : mostra lista interrogazioni
+
+S -> UI : tap 'Nuova'
+UI --> S : form con select argomenti
+
+S -> UI : sceglie argomento + data/ora/posti
+
+UI -> UI : valida data (>= oggi)\nvalida posti (> 0)
+
+alt dati validi
+  UI -> UI : genera codiceInterrogazione
+  UI -> DB : insertRecord("InterrogazioneProgrammata", {...})
+  DB --> UI : OK
+  loop per ogni argomento selezionato
+    UI -> DB : insertRecord("IntProgArgomento",\n  {codiceInterrogazione,\n   codiceArgomento})
+    DB --> UI : OK
+  end
+  UI --> S : "Interrogazione salvata!"
+else dati non validi
+  UI --> S : messaggio di errore
+end
+@enduml
+....
+
+=== SD-03 — Candidatura a un'Interrogazione
+
+[plantuml, sd-candidatura, svg]
+....
+@startuml
+skinparam sequenceArrowThickness 2
+skinparam roundcorner 8
+
+actor ":Studente" as S
+participant "UI App" as UI
+database "Database\nAppLab" as DB
+
+S -> UI : tap interrogazione nel calendario
+UI -> DB : getRecords("InterrogazioneProgrammata")
+DB --> UI : lista interrogazioni
+note right: filtra client-side\nper codiceInterrogazione
+
+UI -> DB : getRecords("AssegnazioneStudenti")
+DB --> UI : candidature
+note right: filtra client-side\nper codiceInterrogazione
+
+alt posti disponibili
+  UI --> S : scheda + btn "Candidati"
+  S -> UI : tap "Candidati"
+  UI -> DB : getRecords("Studente")
+  DB --> UI : lista studenti
+  UI --> S : mostra lista studenti
+
+  S -> UI : sceglie sé stesso
+  UI -> DB : getRecords("AssegnazioneStudenti")
+  DB --> UI : tutte le candidature dello studente
+  note right: filtra client-side\nper posizioneStudente
+  UI -> UI : verifica: nessun conflitto\n(stessa interrogazione o stessa data)
+
+  alt nessun conflitto
+    UI -> DB : insertRecord("AssegnazioneStudenti",\n  {codiceInterrogazione,\n   posizioneStudente})
+    DB --> UI : OK
+    UI --> S : "Candidatura confermata!"
+  else già candidato (stessa interrogazione)
+    UI --> S : "Sei già candidato\nper questa interrogazione"
+  else conflitto di data
+    UI --> S : "Hai già una candidatura\nin questa data"
+  end
+else posti esauriti
+  UI --> S : "Posti esauriti"
+end
+@enduml
+....
+
+=== SD-04 — Visualizzazione Calendario Interrogazioni
+
+[plantuml, sd-calendario, svg]
+....
+@startuml
+skinparam sequenceArrowThickness 2
+skinparam roundcorner 8
+
+actor ":Studente" as S
+participant "UI App" as UI
+database "Database\nAppLab" as DB
+
+S -> UI : tap 'Calendario'
+UI -> DB : getRecords("InterrogazioneProgrammata")
+DB --> UI : lista interrogazioni
+
+UI -> DB : getRecords("IntProgArgomento")
+DB --> UI : argomenti per interrogazione
+
+UI -> DB : getRecords("Argomento")
+DB --> UI : lista argomenti
+
+UI -> DB : getRecords("AssegnazioneStudenti")
+DB --> UI : tutte le candidature
+
+UI -> UI : join dati, ordina per data crescente
+UI --> S : lista con badge posti liberi/occupati
+@enduml
+....
+
+=== SD-05 — Inserimento Materiale Didattico
+
+[plantuml, sd-inserimento-materiale, svg]
+....
+@startuml
+skinparam sequenceArrowThickness 2
+skinparam roundcorner 8
+
+actor ":Studente" as S
+participant "UI App" as UI
+database "Database\nAppLab" as DB
+
+S -> UI : tap 'Materiali'
+UI -> DB : getRecords("MaterialeDidattico")
+DB --> UI : lista materiali
+UI --> S : mostra lista
+
+S -> UI : tap 'Aggiungi'
+UI --> S : mostra form
+
+S -> UI : inserisce (tipo, titolo, autore?, url?)
+UI -> UI : valida tipo e titolo
+
+alt campi obbligatori presenti
+  UI -> UI : genera codiceMateriale
+  UI -> DB : insertRecord("MaterialeDidattico",\n  {codiceMateriale, tipo, titolo,\n   autore, url})
+  DB --> UI : OK
+  UI --> S : "Materiale salvato!"
+else campi mancanti
+  UI --> S : messaggio di errore
+end
+@enduml
+....
+
+=== SD-06 — Registrazione Interrogazione Svolta
+
+[plantuml, sd-registra-svolta, svg]
+....
+@startuml
+skinparam sequenceArrowThickness 2
+skinparam roundcorner 8
+
+actor ":Studente" as S
+participant "UI App" as UI
+database "Database\nAppLab" as DB
+
+S -> UI : tap 'Registra svolta'
+UI -> DB : getRecords("InterrogazioneProgrammata")
+DB --> UI : lista interrogazioni programmate
+
+UI -> DB : getRecords("Argomento")
+DB --> UI : lista argomenti
+
+UI -> DB : getRecords("Studente")
+DB --> UI : lista studenti
+
+UI --> S : mostra form
+
+S -> UI : sceglie (opt) interrogazione programmata,\nargomenti, studenti interrogati, data e ora
+UI -> UI : valida: almeno un argomento,\nalmeno uno studente, data non futura
+
+alt dati validi
+  UI -> UI : genera codiceInterrSvolta
+  UI -> DB : insertRecord("InterrogazioneSvolta",\n  {codiceInterrSvolta,\n   codiceInterrogazione?,\n   data, ora})
+  DB --> UI : OK
+  loop per ogni argomento selezionato
+    UI -> DB : insertRecord("IntSvoltaArgomento",\n  {codiceInterrSvolta,\n   codiceArgomento})
+    DB --> UI : OK
+  end
+  loop per ogni studente interrogato
+    UI -> DB : insertRecord("StudentiInterrogati",\n  {codiceInterrSvolta,\n   posizioneStudente})
+    DB --> UI : OK
+  end
+  UI --> S : "Interrogazione svolta registrata!"
+else dati non validi
+  UI --> S : messaggio di errore
+end
+@enduml
+....
+
+<<<
+
+== Wireframe Diagram
+
+I wireframe illustrano la struttura e il layout delle schermate principali di StudyTogether.
+Il design segue i principi dell'usabilità mobile: navigazione bottom-tab, form semplici, feedback visivo immediato.
+
+=== W01 — Home / Dashboard
+
+[listing]
+----
+  ┌─────────────────────────┐
+  │  ☰  StudyTogether    🔔 │
+  ├─────────────────────────┤
+  │                         │
+  │   Ciao, Classe! 👋      │
+  │   Comunità di Pratica   │
+  │                         │
+  │  ┌───────────────────┐  │
+  │  │ 📅 Prossima interr.│  │
+  │  │ Matematica         │  │
+  │  │ Funzioni — 3 posti │  │
+  │  │ 15/04  ore 10:00   │  │
+  │  │  [ Candidati →  ]  │  │
+  │  └───────────────────┘  │
+  │                         │
+  │  ┌───────────────────┐  │
+  │  │ 📊 Questa settimana│  │
+  │  │ 3 interrogazioni   │  │
+  │  │ 12 candidature tot │  │
+  │  └───────────────────┘  │
+  │                         │
+  ├─────────────────────────┤
+  │ 🏠  📅  📚  👥  ➕     │
+  │Home Cal  Mat Stud Nuovo │
+  └─────────────────────────┘
+----
+
+=== W02 — Calendario Interrogazioni
+
+[listing]
+----
+  ┌─────────────────────────┐
+  │  ←  Calendario       🔍 │
+  ├─────────────────────────┤
+  │ [ Tutte ][ Aperte ][ Mie]│
+  ├─────────────────────────┤
+  │  ┌───────────────────┐  │
+  │  │ 📘 Italiano        │  │
+  │  │ Promessi Sposi     │  │
+  │  │ 12/04 — 09:00      │  │
+  │  │ ●●●○○  3/5 posti   │  │
+  │  └───────────────────┘  │
+  │  ┌───────────────────┐  │
+  │  │ 📗 Matematica      │  │
+  │  │ Funzioni reali     │  │
+  │  │ 15/04 — 10:00      │  │
+  │  │ ●●○○○  2/5 posti   │  │
+  │  │  ✅ Sei candidato  │  │
+  │  └───────────────────┘  │
+  │  ┌───────────────────┐  │
+  │  │ 📕 Storia          │  │
+  │  │ Prima guerra mond. │  │
+  │  │ 18/04 — 11:00      │  │
+  │  │ ○○○○  0/4 posti   │  │
+  │  └───────────────────┘  │
+  ├─────────────────────────┤
+  │ 🏠  📅  📚  👥  ➕     │
+  └─────────────────────────┘
+----
+
+=== W03 — Dettaglio Interrogazione
+
+[listing]
+----
+  ┌─────────────────────────┐
+  │  ←  Interrogazione      │
+  ├─────────────────────────┤
+  │  📗 MATEMATICA          │
+  │  ─────────────────────  │
+  │  Argomento:             │
+  │  Funzioni reali di var. │
+  │  reale                  │
+  │                         │
+  │  📅 15 Aprile — 10:00   │
+  │  👥 Posti: 2 / 5        │
+  │                         │
+  │  ─── Quesiti di studio ─│
+  │  • Def. dominio funzione│
+  │  • Calcola f(x)=x²+2x   │
+  │  • Funzione pari/dispari │
+  │                         │
+  │  ─── Candidati (2) ─────│
+  │  ✓ Rossi Mario          │
+  │  ✓ Bianchi Anna         │
+  │                         │
+  │  ┌─────────────────────┐│
+  │  │   🙋 CANDIDATI!     ││
+  │  └─────────────────────┘│
+  ├─────────────────────────┤
+  │ 🏠  📅  📚  👥  ➕     │
+  └─────────────────────────┘
+----
+
+=== W04 — Nuova Interrogazione (Form)
+
+[listing]
+----
+  ┌─────────────────────────┐
+  │  ←  Nuova Interrogaz.   │
+  ├─────────────────────────┤
+  │                         │
+  │  Materia                │
+  │  ┌─────────────────────┐│
+  │  │ Matematica        ▼ ││
+  │  └─────────────────────┘│
+  │                         │
+  │  Argomento              │
+  │  ┌─────────────────────┐│
+  │  │ Funzioni reali... ▼ ││
+  │  └─────────────────────┘│
+  │  [ + Aggiungi argomento]│
+  │                         │
+  │  Data                   │
+  │  ┌─────────────────────┐│
+  │  │  📅  gg / mm / aaaa ││
+  │  └─────────────────────┘│
+  │                         │
+  │  Ora                    │
+  │  ┌─────────────────────┐│
+  │  │  🕐  hh : mm        ││
+  │  └─────────────────────┘│
+  │                         │
+  │  N° massimo interrogati │
+  │  ┌────────┐             │
+  │  │   5    │             │
+  │  └────────┘             │
+  │                         │
+  │  ┌─────────────────────┐│
+  │  │    💾  SALVA        ││
+  │  └─────────────────────┘│
+  ├─────────────────────────┤
+  │ 🏠  📅  📚  👥  ➕     │
+  └─────────────────────────┘
+----
+
+NOTE: La selezione degli argomenti supporta scelte multiple, purché tutti appartengano alla stessa materia (vincolo UC5 3b). Il prototipo mostra la selezione base; l'implementazione usa una lista con caselle di selezione filtrata per materia.
+
+=== W05 — Gestione Studenti
+
+[listing]
+----
+  ┌─────────────────────────┐
+  │  ←  Studenti       [ + ]│
+  ├─────────────────────────┤
+  │  🔍  Cerca...           │
+  ├─────────────────────────┤
+  │  1.  Bianchi Anna       │
+  │      ─────────────────  │
+  │  2.  Esposito Luca      │
+  │      ─────────────────  │
+  │  3.  Ferrari Giulia     │
+  │      ─────────────────  │
+  │  4.  Greco Marco        │
+  │      ─────────────────  │
+  │  5.  Marino Sofia       │
+  │      ─────────────────  │
+  │  6.  Ricci Paolo        │
+  │      ─────────────────  │
+  │  7.  Rossi Mario        │
+  │                         │
+  │  [ Aggiungi Studente + ]│
+  ├─────────────────────────┤
+  │ 🏠  📅  📚  👥  ➕     │
+  └─────────────────────────┘
+----
+
+=== W06 — Materie e Argomenti
+
+[listing]
+----
+  ┌─────────────────────────┐
+  │  ←  Materie        [ + ]│
+  ├─────────────────────────┤
+  │                         │
+  │  ▼ 📘 Italiano          │
+  │    • I Promessi Sposi   │
+  │      [+ Quesiti: 3]     │
+  │    • Il Barocco         │
+  │      [+ Quesiti: 1]     │
+  │    [ + Argomento ]      │
+  │                         │
+  │  ▶ 📗 Matematica        │
+  │  ▶ 📕 Storia            │
+  │  ▶ 📙 Fisica            │
+  │  ▶ 📓 Inglese           │
+  │                         │
+  │  [ + Nuova Materia ]    │
+  │                         │
+  ├─────────────────────────┤
+  │ 🏠  📅  📚  👥  ➕     │
+  └─────────────────────────┘
+----
+
+<<<
+
+== Modello dei Dati
+
+=== Diagramma delle Classi (Entity-Relationship)
+
+[plantuml, class-diagram, svg]
+....
+@startuml
+skinparam classBackgroundColor #D0E4F5
+skinparam classBorderColor #2E6DA4
+skinparam classHeaderBackgroundColor #1A3A5C
+skinparam classHeaderFontColor #FFFFFF
+
+class Studente {
+  **posizioneStudente** : Number
+  cognome : String
+  nome : String
+}
+
+class Materia {
+  **codiceMateria** : String
+  materia : String
+}
+
+class Argomento {
+  **codiceArgomento** : String
+  //codiceMateria// : String
+  argomento : String
+}
+
+class Quesito {
+  **codiceQuesito** : String
+  //codiceArgomento// : String
+  quesito : String
+}
+
+class MaterialeDidattico {
+  **codiceMateriale** : String
+  tipo : String
+  titolo : String
+  autore : String
+  url : String
+}
+
+class Riferimento {
+  **codiceRiferimento** : String
+  //codiceQuesito// : String
+  //codiceMateriale// : String
+  dettaglio : String
+}
+
+class InterrogazioneProgrammata {
+  **codiceInterrogazione** : String
+  numeroInterrogati : Number
+  data : String
+  ora : String
+}
+
+class IntProgArgomento {
+  //**codiceInterrogazione**// : String
+  //**codiceArgomento**// : String
+}
+
+class AssegnazioneStudenti {
+  //**codiceInterrogazione**// : String
+  //**posizioneStudente**// : Number
+}
+
+class InterrogazioneSvolta {
+  **codiceInterrSvolta** : String
+  //codiceInterrogazione// : String
+  data : String
+  ora : String
+}
+
+class IntSvoltaArgomento {
+  //**codiceInterrSvolta**// : String
+  //**codiceArgomento**// : String
+}
+
+class StudentiInterrogati {
+  //**codiceInterrSvolta**// : String
+  //**posizioneStudente**// : Number
+}
+
+Materia "1" <-- "n" Argomento : codiceMateria >
+Argomento "1" <-- "n" Quesito : codiceArgomento >
+Quesito "1" <-- "n" Riferimento : codiceQuesito >
+MaterialeDidattico "1" <-- "n" Riferimento : codiceMateriale >
+InterrogazioneProgrammata "1" <-- "n" IntProgArgomento : codiceInterrogazione >
+Argomento "1" <-- "n" IntProgArgomento : codiceArgomento >
+InterrogazioneProgrammata "1" <-- "n" AssegnazioneStudenti : codiceInterrogazione >
+Studente "1" <-- "n" AssegnazioneStudenti : posizioneStudente >
+InterrogazioneProgrammata "1" <-- "0..n" InterrogazioneSvolta : codiceInterrogazione >
+InterrogazioneSvolta "1" <-- "n" IntSvoltaArgomento : codiceInterrSvolta >
+Argomento "1" <-- "n" IntSvoltaArgomento : codiceArgomento >
+InterrogazioneSvolta "1" <-- "n" StudentiInterrogati : codiceInterrSvolta >
+Studente "1" <-- "n" StudentiInterrogati : posizioneStudente >
+@enduml
+....
+
+=== Struttura delle Tabelle AppLab
+
+.Tabella `Studente`
+[cols="2,2,1,3", options="header"]
+|===
+| Campo | Tipo | Chiave | Note
+| `id`                 | Number | PK (auto) | Generata da AppLab
+| `posizioneStudente`  | Number | AK        | Numero di lista in classe
+| `cognome`            | String |           |
+| `nome`               | String |           |
+|===
+
+.Tabella `Materia`
+[cols="2,2,1,3", options="header"]
+|===
+| Campo | Tipo | Chiave | Note
+| `id`             | Number | PK (auto) |
+| `codiceMateria`  | String | AK        | Es. `MAT`, `ITA`, `STO`
+| `materia`        | String |           | Nome per esteso
+|===
+
+.Tabella `Argomento`
+[cols="2,2,1,3", options="header"]
+|===
+| Campo | Tipo | Chiave | Note
+| `id`               | Number | PK (auto) |
+| `codiceArgomento`  | String | AK        |
+| `codiceMateria`    | String | FK        | → `Materia.codiceMateria`
+| `argomento`        | String |           |
+|===
+
+.Tabella `Quesito`
+[cols="2,2,1,3", options="header"]
+|===
+| Campo | Tipo | Chiave | Note
+| `id`               | Number | PK (auto) |
+| `codiceQuesito`    | String | AK        |
+| `codiceArgomento`  | String | FK        | → `Argomento.codiceArgomento`
+| `quesito`          | String |           | Testo del quesito di studio
+|===
+
+.Tabella `InterrogazioneProgrammata`
+[cols="2,2,1,3", options="header"]
+|===
+| Campo | Tipo | Chiave | Note
+| `id`                   | Number | PK (auto) |
+| `codiceInterrogazione` | String | AK        | Generato automaticamente
+| `numeroInterrogati`    | Number |           | N. massimo posti disponibili
+| `data`                 | String |           | Formato `gg/mm/aaaa`
+| `ora`                  | String |           | Formato `hh:mm`
+|===
+
+.Tabella `IntProgArgomento`
+[cols="2,2,1,3", options="header"]
+|===
+| Campo | Tipo | Chiave | Note
+| `id`                   | Number | PK (auto)  |
+| `codiceInterrogazione` | String | FK + PK(c) | → `InterrogazioneProgrammata.codiceInterrogazione`
+| `codiceArgomento`      | String | FK + PK(c) | → `Argomento.codiceArgomento`
+|===
+
+NOTE: Tutti gli argomenti di una stessa interrogazione devono appartenere alla stessa materia. Vincolo da applicare in JavaScript prima dell'inserimento.
+
+.Tabella `AssegnazioneStudenti`
+[cols="2,2,1,3", options="header"]
+|===
+| Campo | Tipo | Chiave | Note
+| `id`                   | Number | PK (auto)  |
+| `codiceInterrogazione` | String | FK + PK(c) | → `InterrogazioneProgrammata.codiceInterrogazione`
+| `posizioneStudente`    | Number | FK + PK(c) | → `Studente.posizioneStudente`
+|===
+
+.Tabella `MaterialeDidattico`
+[cols="2,2,1,3", options="header"]
+|===
+| Campo | Tipo | Chiave | Note
+| `id`               | Number | PK (auto) |
+| `codiceMateriale`  | String | AK        |
+| `tipo`             | String |           | libro, sito, articolo, rivista, video, podcast
+| `titolo`           | String |           |
+| `autore`           | String |           | Facoltativo
+| `url`              | String |           | Facoltativo
+|===
+
+.Tabella `Riferimento`
+[cols="2,2,1,3", options="header"]
+|===
+| Campo | Tipo | Chiave | Note
+| `id`                 | Number | PK (auto) |
+| `codiceRiferimento`  | String | AK        |
+| `codiceQuesito`      | String | FK        | → `Quesito.codiceQuesito`
+| `codiceMateriale`    | String | FK        | → `MaterialeDidattico.codiceMateriale`
+| `dettaglio`          | String |           | Es. "pp. 42–56", "cap. 3", "min 12:30–25:00"
+|===
+
+.Tabella `InterrogazioneSvolta`
+[cols="2,2,1,3", options="header"]
+|===
+| Campo | Tipo | Chiave | Note
+| `id`                   | Number | PK (auto) |
+| `codiceInterrSvolta`   | String | AK        | Generato automaticamente
+| `codiceInterrogazione` | String | FK        | → `InterrogazioneProgrammata` — facoltativo (può essere `""`)
+| `data`                 | String |           | Formato `gg/mm/aaaa`
+| `ora`                  | String |           | Formato `hh:mm`
+|===
+
+.Tabella `IntSvoltaArgomento`
+[cols="2,2,1,3", options="header"]
+|===
+| Campo | Tipo | Chiave | Note
+| `id`                 | Number | PK (auto)  |
+| `codiceInterrSvolta` | String | FK + PK(c) | → `InterrogazioneSvolta.codiceInterrSvolta`
+| `codiceArgomento`    | String | FK + PK(c) | → `Argomento.codiceArgomento`
+|===
+
+.Tabella `StudentiInterrogati`
+[cols="2,2,1,3", options="header"]
+|===
+| Campo | Tipo | Chiave | Note
+| `id`                 | Number | PK (auto)  |
+| `codiceInterrSvolta` | String | FK + PK(c) | → `InterrogazioneSvolta.codiceInterrSvolta`
+| `posizioneStudente`  | Number | FK + PK(c) | → `Studente.posizioneStudente`
+|===
+
+NOTE: `PK(c)` = chiave primaria composta. L'unicità delle combinazioni con questo vincolo deve essere garantita in JavaScript prima di ogni `insertRecord`.
+
+<<<
+
+== Requisiti Non Funzionali
+
+=== Usabilità
+
+* L'interfaccia deve essere utilizzabile senza formazione preliminare da studenti di scuola secondaria.
+* La navigazione principale deve avvenire tramite barra di navigazione bottom-tab con massimo 5 voci.
+* Ogni operazione deve essere completabile in massimo *3 tap* dalla schermata principale.
+* I messaggi di errore devono essere scritti in linguaggio naturale, non tecnico.
+
+=== Affidabilità
+
+* Il sistema deve validare tutti i dati in input prima del salvataggio.
+* In caso di errore di salvataggio, deve essere mostrato un feedback chiaro allo studente.
+* Non devono essere possibili duplicati nei campi chiave.
+
+=== Prestazioni
+
+* Il caricamento di qualsiasi schermata non deve superare i *3 secondi* su connessione standard.
+* Il database è dimensionato per: ≤ 30 studenti, ≤ 20 materie, ≤ 200 argomenti, ≤ 500 quesiti, ≤ 100 interrogazioni.
+
+=== Manutenibilità
+
+* Il codice deve essere commentato e strutturato in funzioni con responsabilità singola.
+* Le operazioni di database devono essere incapsulate in funzioni helper riutilizzabili.
+
+=== Vincoli di Progettazione (AppLab)
+
+* Tutte le schermate devono essere progettate nel _Design Mode_ di AppLab.
+* La logica applicativa deve essere scritta in JavaScript ES6 compatibile con l'interprete di AppLab.
+* Le operazioni di database devono usare esclusivamente le API native di AppLab:
++
+[source,javascript]
+----
+insertRecord(tableName, record, callback)
+getRecords(tableName, callback)
+updateRecord(tableName, record, callback)
+deleteRecord(tableName, record, callback)
+----
+* Non è possibile usare librerie esterne non supportate da AppLab.
+
+<<<
+
+== Visione Pedagogica e Collaborativa
+
+=== L'Informatica come Strumento di Cooperazione
+
+StudyTogether non è semplicemente un'agenda digitale: è uno strumento che reifica il principio secondo cui *imparare è un atto sociale*.
+
+La tecnologia, in questo contesto, non automatizza né sostituisce la relazione educativa: la *amplifica*.
+Ogni studente che inserisce un quesito arricchisce la base di conoscenza comune.
+Ogni candidatura è un atto di responsabilità verso la classe.
+Il calendario condiviso trasparente riduce l'ansia da prestazione e aumenta la prevedibilità del percorso di studio.
+
+Il modello si ispira al *cooperative learning* (Johnson & Johnson, 1989): interdipendenza positiva, responsabilità individuale, interazione faccia a faccia, competenze sociali e revisione di gruppo si traducono in funzionalità concrete dell'app.
+
+=== Mapping Pedagogia → Funzionalità
+
+[cols="2,3", options="header"]
+|===
+| Principio Pedagogico | Funzionalità StudyTogether
+
+| Interdipendenza positiva
+| Il calendario è condiviso: nessuno può ignorare le interrogazioni degli altri.
+
+| Responsabilità individuale
+| La candidatura è un atto volontario e tracciato.
+
+| Costruzione collettiva della conoscenza
+| I quesiti inseriti da chiunque diventano patrimonio di tutti.
+
+| Metacognizione
+| Organizzare argomenti e quesiti stimola la riflessione sul sapere.
+
+| Riduzione dell'ansia da prestazione
+| La visibilità dei posti e delle date riduce l'incertezza.
+
+| Autoregolazione dell'apprendimento
+| Lo studente sceglie quando candidarsi, assumendosi la responsabilità.
+|===
+
+=== Sviluppi Futuri
+
+* Sistema di notifiche push per avvisi sulle interrogazioni imminenti.
+* Funzionalità di votazione collettiva per la scelta degli argomenti.
+* Integrazione con il registro elettronico di classe.
+* Dashboard statistica per il docente (distribuzione candidature, frequenza argomenti).
+* Gamification: badge per contributi ai quesiti condivisi.
+* Versione multi-classe per confronti tra sezioni parallele.
+
+<<<
+
+[appendix]
+== Riepilogo Requisiti Funzionali
+
+[cols="1,1,3", options="header"]
+|===
+| ID UC | Requisito | Descrizione
+
+| UC1  | RF-01  | Il sistema deve permettere l'inserimento di studenti con posizione univoca in classe, cognome e nome.
+| UC2  | RF-02  | Il sistema deve gestire l'elenco delle materie del monte ore.
+| UC3  | RF-03  | Gli argomenti devono essere associati a una materia esistente.
+| UC4  | RF-04  | I quesiti devono essere associati a un argomento esistente.
+| UC5  | RF-05  | L'interrogazione programmata deve avere uno o più argomenti della stessa materia, data futura, ora e numero massimo di posti.
+| UC6  | RF-06  | La scheda dell'interrogazione deve mostrare argomenti, materia, data, posti disponibili, candidati e quesiti di studio.
+| UC7  | RF-07  | La candidatura deve essere bloccata se i posti sono esauriti, lo studente è già candidato per la stessa interrogazione, o ha una candidatura nella stessa data.
+| UC8  | RF-08  | I materiali didattici devono avere tipo (libro, sito, articolo, rivista, video, podcast), titolo, e facoltativamente autore e URL.
+| UC9  | RF-09  | Un riferimento deve collegare un quesito a una specifica porzione di materiale didattico con dettaglio testuale obbligatorio.
+| UC10 | RF-10  | L'interrogazione svolta deve registrare data, ora, almeno un argomento, almeno uno studente interrogato, e opzionalmente il collegamento a un'interrogazione programmata.
+| UC11 | RF-11  | Il sistema deve mostrare, per un argomento, gli studenti candidati a un'interrogazione programmata futura ma non ancora risultanti in una svolta per lo stesso argomento.
+|===
+
+[appendix]
+== Istruzioni per il Rendering
+
+Per generare l'output HTML o PDF da questo file `.adoc`:
+
+[source,bash]
+----
+# HTML (semplice, senza diagrammi PlantUML)
+asciidoctor srs.adoc
+
+# HTML con diagrammi PlantUML
+asciidoctor -r asciidoctor-diagram srs.adoc
+
+# PDF
+asciidoctor-pdf -r asciidoctor-diagram srs.adoc
+
+# Prerequisiti
+gem install asciidoctor
+gem install asciidoctor-diagram
+gem install asciidoctor-pdf
+----
+
+NOTE: I blocchi `[plantuml, ..., svg]` richiedono `asciidoctor-diagram` e Java (per PlantUML). +
+In assenza di questi strumenti, le rappresentazioni testuali nei blocchi `[listing]` sono pienamente equivalenti.
+
+---
+
+_Fine del documento — StudyTogether SRS v{version} — {date}_
