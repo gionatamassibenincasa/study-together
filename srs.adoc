@@ -1,4 +1,4 @@
-= StudyTogether — Specifica dei Requisiti del Software
+= StudyTogether -- Specifica dei Requisiti del Software
 :doctype: book
 :toc: left
 :toc-title: Indice
@@ -21,10 +21,12 @@
 :table-caption: Tabella
 :figure-caption: Figura
 :appendix-caption: Appendice
+:chapter-label: Capitolo
+:chapter-signifier: Capitolo
 
 [.lead]
 *App per la Gestione Collaborativa delle Interrogazioni Programmate* +
-Realizzata con AppLab di Code.org — Scuola Secondaria di Secondo Grado
+Realizzata con https://studio.code.org/projects/applab/[AppLab di Code.org] -- Scuola Secondaria di Secondo Grado.
 
 ---
 
@@ -45,8 +47,8 @@ Realizzata con AppLab di Code.org — Scuola Secondaria di Secondo Grado
 
 === Scopo del Documento
 
-Il presente documento costituisce la *Specifica dei Requisiti del Software (SRS)* per l'applicazione *StudyTogether*, sviluppata con la piattaforma AppLab di Code.org.
-La SRS definisce in modo formale e completo le funzionalità, i vincoli e i comportamenti attesi dell'applicazione, servendo come riferimento contrattuale tra il team di sviluppo e gli utenti destinatari.
+Il presente documento costituisce la *Specifica dei Requisiti del Software (SRS)* per l'applicazione *StudyTogether*, sviluppata con la piattaforma https://studio.code.org/projects/applab/[AppLab] di https://code.org[Code.org].
+La SRS definisce in modo formale e completo le funzionalità, i vincoli e i comportamenti attesi dell'applicazione, servendo come riferimento per il team di sviluppo.
 
 Lo standard di riferimento adottato è **ISO/IEC/IEEE 29148:2018** — _Systems and software engineering — Requirements engineering_.
 
@@ -57,11 +59,11 @@ L'informatica è qui intesa non come fine, ma come *mezzo di collaborazione e co
 
 L'app trasforma la classe in una **Comunità di Pratica** (Lave & Wenger, 1991): uno spazio in cui la conoscenza non è detenuta da pochi, ma circola, si costruisce collettivamente e si consolida attraverso la partecipazione attiva di ogni studente.
 
-Le interrogazioni programmate — tradizionalmente vissute come momenti di ansia e competizione — diventano *occasioni di apprendimento cooperativo*: gli studenti gestiscono insieme il calendario delle verifiche, si candidano consapevolmente, condividono quesiti di studio e organizzano la conoscenza per argomento e materia.
+Le interrogazioni programmate, tradizionalmente vissute come momenti di ansia e competizione, diventano *occasioni di apprendimento cooperativo*: gli studenti gestiscono insieme il calendario delle verifiche, si candidano consapevolmente, condividono quesiti di studio e organizzano la conoscenza per argomento e materia.
 
 === Ambito di Applicazione
 
-L'applicazione è destinata agli studenti delle classi della scuola secondaria di secondo grado (licei, istituti tecnici, istituti professionali).
+L'applicazione è destinata agli studenti delle classi della scuola secondaria di secondo grado.
 Il contesto d'uso è quello della *singola classe scolastica* che adotta l'app come strumento condiviso di autogestione dello studio.
 La piattaforma AppLab di Code.org consente lo sviluppo di app data-driven per smartphone con un database integrato, rendendola adatta a questo caso d'uso didattico.
 
@@ -105,10 +107,8 @@ La piattaforma AppLab di Code.org consente lo sviluppo di app data-driven per sm
 | Ambiente di sviluppo di Code.org per app data-driven per smartphone.
 
 | Database
-| Archivio dati strutturato integrato nell'applicazione AppLab.
+| Archivio di dati strutturato integrato nell'applicazione AppLab.
 
-| FK
-| Foreign Key — chiave esterna che referenzia un record di un'altra tabella.
 |===
 
 === Riferimenti
@@ -124,41 +124,41 @@ La piattaforma AppLab di Code.org consente lo sviluppo di app data-driven per sm
 
 === Prospettiva del Sistema
 
-StudyTogether è un'applicazione standalone per smartphone, sviluppata interamente su AppLab (Code.org).
+StudyTogether è un'applicazione per smartphone, sviluppata interamente su AppLab (Code.org).
 Utilizza il database integrato della piattaforma per la persistenza dei dati.
 Non richiede connessione a server esterni né autenticazione con account personali: il modello è quello di un'app *condivisa dalla classe*, installata (o accessibile via browser) su dispositivi mobili individuali. Sta alla responsabilità degli studenti agire in modo etico.
 
 === Funzionalità Principali
 
-Le funzionalità principali consistono nell'inizializzazione dell'applicazione (inserimento di: anagrafiche degli studenti, materie, argomenti, quesiti, materiali didattici), nella gestione delle interrogazioni programmate (creazione, visualizzazione, candidatura), nella gestione delle interrogazioni svolte (tipo di candidato, studenti interrogati) e nella visualizzazione del calendario condiviso. In sintesi, le funzionalità chiave sono:
+Le funzionalità principali consistono nell'inizializzazione dell'applicazione (inserimento di: anagrafiche degli studenti, materie, argomenti, quesiti, materiali didattici), nella gestione delle interrogazioni programmate (creazione, visualizzazione, candidatura), nella gestione delle interrogazioni svolte (tipo di candidato, studenti interrogati, inserimento nuovi quesiti) e nella visualizzazione del calendario condiviso. In sintesi, le funzionalità chiave sono:
 
 * Gestione anagrafica degli studenti della classe
 * Catalogazione delle materie per le quali sono previste interrogazioni
-* Organizzazione gerarchica degli argomenti per materia
+* Organizzazione degli argomenti per materia
 * Archiviazione dei quesiti di studio per argomento
 * Archiviazione dei materiali didattici
 * Archiviazione dei riferimenti specifici che legano i quesiti ai materiali didattici
 * Pianificazione delle interrogazioni programmate con data, ora e numero di posti
 * Registrazione delle interrogazioni svolte con indicazione degli studenti effettivamente interrogati
 * Visualizzazione del calendario delle interrogazioni
-* Candidatura spontanea degli studenti alle interrogazioni
-* Visualizzazione dei candidati per ogni interrogazione
+* Candidatura spontanea degli studenti alle interrogazioni programmate
+* Visualizzazione dei candidati per ogni interrogazione programmata o svolta
 * Visualizzazione degli studenti in attesa di interrogazione su un argomento
 
 === Caratteristiche degli Utenti
 
-L'unico profilo utente previsto è lo **Studente**.
+L'unico profilo utente è quello dello **Studente**.
 Non è prevista una distinzione tra amministratori e utenti ordinari: la filosofia cooperativa dell'app prevede che tutti i membri della classe abbiano gli stessi diritti e responsabilità.
 Ogni studente può inserire, visualizzare e candidarsi liberamente.
 
 === Vincoli e Assunzioni
 
 * Sviluppo esclusivo su piattaforma AppLab di Code.org.
-* Utilizzo del database integrato di AppLab (API: `insertRecord`, `getRecords`, `updateRecord`, `deleteRecord`).
-* Interfaccia ottimizzata per smartphone (schermo verticale, touch-first, dimensioni 320x450px).
+* Utilizzo del database integrato di AppLab (API: https://studio.code.org/docs/ide/applab/expressions/createRecord[`createRecord`], https://studio.code.org/docs/ide/applab/expressions/readRecords[`readRecords`], https://studio.code.org/docs/ide/applab/expressions/updateRecord[`updateRecord`], https://studio.code.org/docs/ide/applab/expressions/deleteRecord[`deleteRecord`]).
+* Interfaccia ottimizzata per smartphone (schermo verticale, touch-first, dimensioni 320x450 px).
 * Nessun sistema di autenticazione individuale: responsabilità condivisa dei dati.
 * Lingua dell'interfaccia: Italiano.
-* L'app è pensata per essere usata da una singola classe per volta.
+* L'app è progettata per essere usata da una singola classe per volta.
 
 <<<
 
@@ -182,6 +182,7 @@ skinparam rectangle {
   BackgroundColor #F2F6FA
   BorderColor #4A90D9
 }
+left to right direction
 
 title Use Case Diagram — StudyTogether
 
@@ -219,9 +220,6 @@ UC9 .> UC4 : <<extend>>
 @enduml
 ....
 
-NOTE: Il diagramma PlantUML può essere renderizzato con `asciidoctor-diagram`. +
-In alternativa, la rappresentazione testuale è disponibile nella sezione successiva.
-
 === Rappresentazione Testuale del Diagramma
 
 [listing]
@@ -244,7 +242,7 @@ In alternativa, la rappresentazione testuale è disponibile nella sezione succes
                             │
                      ┌──────┴──────┐
                      │  :Studente  │
-                     │   (  O  )   │
+                     │     O       │
                      │    ─|─      │
                      │    / \      │
                      └─────────────┘
@@ -272,6 +270,28 @@ a|
 | *Post-condizioni*    | Un nuovo studente è registrato nel sistema e appare nella lista della classe.
 | *Flussi alternativi* | *3a.* I campi sono incompleti: il sistema mostra un messaggio di errore e non salva.
 |===
+
+Il caso d'uso, flusso principale, considerata una tabella `Studente(posizione: number, cognome: string, nome: string)` è rappresentata dal codice seguente:
+
+```js
+onEvent("btnSalvaStudente", "click", function( ) {
+  // Lettura dei dati del modulo
+	var posizione = parseInt(getProperty("txtPosizione", "text"));
+	var cognome = getProperty("txtCognome", "text");
+	var nome = getProperty("txtNome", "text");
+  // Costruzione del record (oggetto Studente)
+	var studente = {
+	  "posizione": posizione,
+	  "cognome": cognome,
+	  "nome": nome
+	};
+  // Inserimento del record nella tabella Studente
+	createRecord("Studente", studente,
+	function(record){
+	  console.log("Record aggiunto: " + record.id);
+	});
+});
+```
 
 ==== UC2 — Inserisce Materie
 
@@ -508,7 +528,7 @@ a|
 
 == Diagrammi di Sequenza (Sequence Diagrams)
 
-I diagrammi descrivono le interazioni temporali tra lo Studente, l'interfaccia dell'app (UI) e il database AppLab.
+I diagrammi descrivono le interazioni temporali (Codice) tra lo Studente, l'interfaccia dell'app (Intefaccia) e il database AppLab (Dati).
 
 === SD-01 — Inserimento di uno Studente
 
@@ -524,7 +544,7 @@ participant "UI App" as UI
 database "Database\nAppLab" as DB
 
 S -> UI : tap 'Studenti'
-UI -> DB : getRecords("Studente")
+UI -> DB : readRecords("Studente")
 DB --> UI : lista studenti
 UI --> S : mostra lista
 
@@ -535,7 +555,7 @@ S -> UI : inserisce (posizione, cognome, nome)
 UI -> UI : valida campi
 
 alt campi validi
-  UI -> DB : insertRecord("Studente", {pos, cognome, nome})
+  UI -> DB : createRecord("Studente", {pos, cognome, nome})
   DB --> UI : OK
   UI --> S : "Studente salvato!"
 else campi incompleti
@@ -550,7 +570,7 @@ end
        │               │               │
        │ tap 'Studenti'│               │
        │──────────────>│               │
-       │               │ getRecords()  │
+       │               │ readRecords()  │
        │               │──────────────>│
        │               │<──────────────│ lista studenti
        │<──────────────│               │
@@ -562,7 +582,7 @@ end
        │ inserisce dati│               │
        │──────────────>│               │
        │               │ valida campi  │
-       │               │ insertRecord()│
+       │               │ createRecord()│
        │               │──────────────>│
        │               │<──────────────│ OK
        │<──────────────│ feedback      │
@@ -581,9 +601,9 @@ participant "UI App" as UI
 database "Database\nAppLab" as DB
 
 S -> UI : tap 'Interrogazioni'
-UI -> DB : getRecords("Argomento")
+UI -> DB : readRecords("Argomento")
 DB --> UI : lista argomenti
-UI -> DB : getRecords("Materia")
+UI -> DB : readRecords("Materia")
 DB --> UI : lista materie
 
 UI --> S : mostra lista interrogazioni
@@ -597,10 +617,10 @@ UI -> UI : valida data (>= oggi)\nvalida posti (> 0)
 
 alt dati validi
   UI -> UI : genera codiceInterrogazione
-  UI -> DB : insertRecord("InterrogazioneProgrammata", {...})
+  UI -> DB : createRecord("InterrogazioneProgrammata", {...})
   DB --> UI : OK
   loop per ogni argomento selezionato
-    UI -> DB : insertRecord("IntProgArgomento",\n  {codiceInterrogazione,\n   codiceArgomento})
+    UI -> DB : createRecord("IntProgArgomento",\n  {codiceInterrogazione,\n   codiceArgomento})
     DB --> UI : OK
   end
   UI --> S : "Interrogazione salvata!"
@@ -623,29 +643,29 @@ participant "UI App" as UI
 database "Database\nAppLab" as DB
 
 S -> UI : tap interrogazione nel calendario
-UI -> DB : getRecords("InterrogazioneProgrammata")
+UI -> DB : readRecords("InterrogazioneProgrammata")
 DB --> UI : lista interrogazioni
 note right: filtra client-side\nper codiceInterrogazione
 
-UI -> DB : getRecords("AssegnazioneStudenti")
+UI -> DB : readRecords("AssegnazioneStudenti")
 DB --> UI : candidature
 note right: filtra client-side\nper codiceInterrogazione
 
 alt posti disponibili
   UI --> S : scheda + btn "Candidati"
   S -> UI : tap "Candidati"
-  UI -> DB : getRecords("Studente")
+  UI -> DB : readRecords("Studente")
   DB --> UI : lista studenti
   UI --> S : mostra lista studenti
 
   S -> UI : sceglie sé stesso
-  UI -> DB : getRecords("AssegnazioneStudenti")
+  UI -> DB : readRecords("AssegnazioneStudenti")
   DB --> UI : tutte le candidature dello studente
   note right: filtra client-side\nper posizioneStudente
   UI -> UI : verifica: nessun conflitto\n(stessa interrogazione o stessa data)
 
   alt nessun conflitto
-    UI -> DB : insertRecord("AssegnazioneStudenti",\n  {codiceInterrogazione,\n   posizioneStudente})
+    UI -> DB : createRecord("AssegnazioneStudenti",\n  {codiceInterrogazione,\n   posizioneStudente})
     DB --> UI : OK
     UI --> S : "Candidatura confermata!"
   else già candidato (stessa interrogazione)
@@ -672,16 +692,16 @@ participant "UI App" as UI
 database "Database\nAppLab" as DB
 
 S -> UI : tap 'Calendario'
-UI -> DB : getRecords("InterrogazioneProgrammata")
+UI -> DB : readRecords("InterrogazioneProgrammata")
 DB --> UI : lista interrogazioni
 
-UI -> DB : getRecords("IntProgArgomento")
+UI -> DB : readRecords("IntProgArgomento")
 DB --> UI : argomenti per interrogazione
 
-UI -> DB : getRecords("Argomento")
+UI -> DB : readRecords("Argomento")
 DB --> UI : lista argomenti
 
-UI -> DB : getRecords("AssegnazioneStudenti")
+UI -> DB : readRecords("AssegnazioneStudenti")
 DB --> UI : tutte le candidature
 
 UI -> UI : join dati, ordina per data crescente
@@ -702,7 +722,7 @@ participant "UI App" as UI
 database "Database\nAppLab" as DB
 
 S -> UI : tap 'Materiali'
-UI -> DB : getRecords("MaterialeDidattico")
+UI -> DB : readRecords("MaterialeDidattico")
 DB --> UI : lista materiali
 UI --> S : mostra lista
 
@@ -714,7 +734,7 @@ UI -> UI : valida tipo e titolo
 
 alt campi obbligatori presenti
   UI -> UI : genera codiceMateriale
-  UI -> DB : insertRecord("MaterialeDidattico",\n  {codiceMateriale, tipo, titolo,\n   autore, url})
+  UI -> DB : createRecord("MaterialeDidattico",\n  {codiceMateriale, tipo, titolo,\n   autore, url})
   DB --> UI : OK
   UI --> S : "Materiale salvato!"
 else campi mancanti
@@ -736,13 +756,13 @@ participant "UI App" as UI
 database "Database\nAppLab" as DB
 
 S -> UI : tap 'Registra svolta'
-UI -> DB : getRecords("InterrogazioneProgrammata")
+UI -> DB : readRecords("InterrogazioneProgrammata")
 DB --> UI : lista interrogazioni programmate
 
-UI -> DB : getRecords("Argomento")
+UI -> DB : readRecords("Argomento")
 DB --> UI : lista argomenti
 
-UI -> DB : getRecords("Studente")
+UI -> DB : readRecords("Studente")
 DB --> UI : lista studenti
 
 UI --> S : mostra form
@@ -752,14 +772,14 @@ UI -> UI : valida: almeno un argomento,\nalmeno uno studente, data non futura
 
 alt dati validi
   UI -> UI : genera codiceInterrSvolta
-  UI -> DB : insertRecord("InterrogazioneSvolta",\n  {codiceInterrSvolta,\n   codiceInterrogazione?,\n   data, ora})
+  UI -> DB : createRecord("InterrogazioneSvolta",\n  {codiceInterrSvolta,\n   codiceInterrogazione?,\n   data, ora})
   DB --> UI : OK
   loop per ogni argomento selezionato
-    UI -> DB : insertRecord("IntSvoltaArgomento",\n  {codiceInterrSvolta,\n   codiceArgomento})
+    UI -> DB : createRecord("IntSvoltaArgomento",\n  {codiceInterrSvolta,\n   codiceArgomento})
     DB --> UI : OK
   end
   loop per ogni studente interrogato
-    UI -> DB : insertRecord("StudentiInterrogati",\n  {codiceInterrSvolta,\n   posizioneStudente})
+    UI -> DB : createRecord("StudentiInterrogati",\n  {codiceInterrSvolta,\n   posizioneStudente})
     DB --> UI : OK
   end
   UI --> S : "Interrogazione svolta registrata!"
@@ -982,10 +1002,12 @@ NOTE: La selezione degli argomenti supporta scelte multiple, purché tutti appar
 [plantuml, class-diagram, svg]
 ....
 @startuml
-skinparam classBackgroundColor #D0E4F5
-skinparam classBorderColor #2E6DA4
-skinparam classHeaderBackgroundColor #1A3A5C
-skinparam classHeaderFontColor #FFFFFF
+' skinparam classBackgroundColor #D0E4F5
+' skinparam classBorderColor #2E6DA4
+' skinparam classHeaderBackgroundColor #1A3A5C
+' skinparam classHeaderFontColor #FFFFFF
+hide circle
+hide method
 
 class Studente {
   **posizioneStudente** : Number
@@ -1199,7 +1221,7 @@ NOTE: Tutti gli argomenti di una stessa interrogazione devono appartenere alla s
 | `posizioneStudente`  | Number | FK + PK(c) | → `Studente.posizioneStudente`
 |===
 
-NOTE: `PK(c)` = chiave primaria composta. L'unicità delle combinazioni con questo vincolo deve essere garantita in JavaScript prima di ogni `insertRecord`.
+NOTE: `PK(c)` = chiave primaria composta. L'unicità delle combinazioni con questo vincolo deve essere garantita in JavaScript prima di ogni `createRecord`.
 
 <<<
 
@@ -1236,8 +1258,8 @@ NOTE: `PK(c)` = chiave primaria composta. L'unicità delle combinazioni con ques
 +
 [source,javascript]
 ----
-insertRecord(tableName, record, callback)
-getRecords(tableName, callback)
+createRecord(tableName, record, callback)
+readRecords(tableName, callback)
 updateRecord(tableName, record, callback)
 deleteRecord(tableName, record, callback)
 ----
@@ -1333,6 +1355,7 @@ asciidoctor-pdf -r asciidoctor-diagram srs.adoc
 # Prerequisiti
 gem install asciidoctor
 gem install asciidoctor-diagram
+gem install asciidoctor-diagram-plantuml
 gem install asciidoctor-pdf
 ----
 

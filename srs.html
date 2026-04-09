@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.25">
+<meta name="generator" content="Asciidoctor 2.0.23">
 <meta name="author" content="3B AFM">
-<title>StudyTogether — Specifica dei Requisiti del Software</title>
+<title>StudyTogether&#8201;&#8212;&#8201;Specifica dei Requisiti del Software</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -117,6 +117,7 @@ h1 strong,h2 strong,h3 strong,#toctitle strong,.sidebarblock>.content>.title str
 :not(pre):not([class^=L])>code{font-size:.9375em;font-style:normal!important;letter-spacing:0;padding:.1em .5ex;word-spacing:-.15em;background:#f7f7f8;border-radius:4px;line-height:1.45;text-rendering:optimizeSpeed}
 pre{color:rgba(0,0,0,.9);font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;line-height:1.45;text-rendering:optimizeSpeed}
 pre code,pre pre{color:inherit;font-size:inherit;line-height:inherit}
+pre>code{display:block}
 pre.nowrap,pre.nowrap pre{white-space:pre;word-wrap:normal}
 em em{font-style:normal}
 strong strong{font-weight:400}
@@ -219,7 +220,6 @@ table.tableblock.fit-content>caption.title{white-space:nowrap;width:0}
 .literalblock pre,.listingblock>.content>pre:not(.highlight),.listingblock>.content>pre[class=highlight],.listingblock>.content>pre[class^="highlight "]{background:#f7f7f8}
 .literalblock.output pre{color:#f7f7f8;background:rgba(0,0,0,.9)}
 .listingblock>.content{position:relative}
-.listingblock pre>code{display:block}
 .listingblock code[data-lang]::before{display:none;content:attr(data-lang);position:absolute;font-size:.75em;top:.425rem;right:.5rem;line-height:1;text-transform:uppercase;color:inherit;opacity:.5}
 .listingblock:hover code[data-lang]::before{display:block}
 .listingblock.terminal pre .command::before{content:attr(data-prompt);padding-right:.5em;color:inherit;opacity:.5}
@@ -439,7 +439,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="book toc2 toc-left">
 <div id="header">
-<h1>StudyTogether — Specifica dei Requisiti del Software</h1>
+<h1>StudyTogether&#8201;&#8212;&#8201;Specifica dei Requisiti del Software</h1>
 <div class="details">
 <span id="author" class="author">3B AFM</span><br>
 <span id="revnumber">version 1.0,</span>
@@ -539,7 +539,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="sectionbody">
 <div class="paragraph lead">
 <p><strong>App per la Gestione Collaborativa delle Interrogazioni Programmate</strong><br>
-Realizzata con AppLab di Code.org — Scuola Secondaria di Secondo Grado</p>
+Realizzata con <a href="https://studio.code.org/projects/applab/">AppLab di Code.org</a>&#8201;&#8212;&#8201;Scuola Secondaria di Secondo Grado.</p>
 </div>
 <hr>
 <table class="tableblock frame-all grid-all" style="width: 60%;">
@@ -589,8 +589,8 @@ Realizzata con AppLab di Code.org — Scuola Secondaria di Secondo Grado</p>
 <div class="sect2">
 <h3 id="_scopo_del_documento">1.1. Scopo del Documento</h3>
 <div class="paragraph">
-<p>Il presente documento costituisce la <strong>Specifica dei Requisiti del Software (SRS)</strong> per l&#8217;applicazione <strong>StudyTogether</strong>, sviluppata con la piattaforma AppLab di Code.org.
-La SRS definisce in modo formale e completo le funzionalità, i vincoli e i comportamenti attesi dell&#8217;applicazione, servendo come riferimento contrattuale tra il team di sviluppo e gli utenti destinatari.</p>
+<p>Il presente documento costituisce la <strong>Specifica dei Requisiti del Software (SRS)</strong> per l&#8217;applicazione <strong>StudyTogether</strong>, sviluppata con la piattaforma <a href="https://studio.code.org/projects/applab/">AppLab</a> di <a href="https://code.org">Code.org</a>.
+La SRS definisce in modo formale e completo le funzionalità, i vincoli e i comportamenti attesi dell&#8217;applicazione, servendo come riferimento per il team di sviluppo.</p>
 </div>
 <div class="paragraph">
 <p>Lo standard di riferimento adottato è <strong>ISO/IEC/IEEE 29148:2018</strong> — <em>Systems and software engineering — Requirements engineering</em>.</p>
@@ -606,13 +606,13 @@ L&#8217;informatica è qui intesa non come fine, ma come <strong>mezzo di collab
 <p>L&#8217;app trasforma la classe in una <strong>Comunità di Pratica</strong> (Lave &amp; Wenger, 1991): uno spazio in cui la conoscenza non è detenuta da pochi, ma circola, si costruisce collettivamente e si consolida attraverso la partecipazione attiva di ogni studente.</p>
 </div>
 <div class="paragraph">
-<p>Le interrogazioni programmate — tradizionalmente vissute come momenti di ansia e competizione — diventano <strong>occasioni di apprendimento cooperativo</strong>: gli studenti gestiscono insieme il calendario delle verifiche, si candidano consapevolmente, condividono quesiti di studio e organizzano la conoscenza per argomento e materia.</p>
+<p>Le interrogazioni programmate, tradizionalmente vissute come momenti di ansia e competizione, diventano <strong>occasioni di apprendimento cooperativo</strong>: gli studenti gestiscono insieme il calendario delle verifiche, si candidano consapevolmente, condividono quesiti di studio e organizzano la conoscenza per argomento e materia.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_ambito_di_applicazione">1.3. Ambito di Applicazione</h3>
 <div class="paragraph">
-<p>L&#8217;applicazione è destinata agli studenti delle classi della scuola secondaria di secondo grado (licei, istituti tecnici, istituti professionali).
+<p>L&#8217;applicazione è destinata agli studenti delle classi della scuola secondaria di secondo grado.
 Il contesto d&#8217;uso è quello della <strong>singola classe scolastica</strong> che adotta l&#8217;app come strumento condiviso di autogestione dello studio.
 La piattaforma AppLab di Code.org consente lo sviluppo di app data-driven per smartphone con un database integrato, rendendola adatta a questo caso d&#8217;uso didattico.</p>
 </div>
@@ -677,11 +677,7 @@ La piattaforma AppLab di Code.org consente lo sviluppo di app data-driven per sm
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Database</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Archivio dati strutturato integrato nell&#8217;applicazione AppLab.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">FK</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Foreign Key — chiave esterna che referenzia un record di un&#8217;altra tabella.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Archivio di dati strutturato integrato nell&#8217;applicazione AppLab.</p></td>
 </tr>
 </tbody>
 </table>
@@ -714,7 +710,7 @@ La piattaforma AppLab di Code.org consente lo sviluppo di app data-driven per sm
 <div class="sect2">
 <h3 id="_prospettiva_del_sistema">2.1. Prospettiva del Sistema</h3>
 <div class="paragraph">
-<p>StudyTogether è un&#8217;applicazione standalone per smartphone, sviluppata interamente su AppLab (Code.org).
+<p>StudyTogether è un&#8217;applicazione per smartphone, sviluppata interamente su AppLab (Code.org).
 Utilizza il database integrato della piattaforma per la persistenza dei dati.
 Non richiede connessione a server esterni né autenticazione con account personali: il modello è quello di un&#8217;app <strong>condivisa dalla classe</strong>, installata (o accessibile via browser) su dispositivi mobili individuali. Sta alla responsabilità degli studenti agire in modo etico.</p>
 </div>
@@ -722,7 +718,7 @@ Non richiede connessione a server esterni né autenticazione con account persona
 <div class="sect2">
 <h3 id="_funzionalità_principali">2.2. Funzionalità Principali</h3>
 <div class="paragraph">
-<p>Le funzionalità principali consistono nell&#8217;inizializzazione dell&#8217;applicazione (inserimento di: anagrafiche degli studenti, materie, argomenti, quesiti, materiali didattici), nella gestione delle interrogazioni programmate (creazione, visualizzazione, candidatura), nella gestione delle interrogazioni svolte (tipo di candidato, studenti interrogati) e nella visualizzazione del calendario condiviso. In sintesi, le funzionalità chiave sono:</p>
+<p>Le funzionalità principali consistono nell&#8217;inizializzazione dell&#8217;applicazione (inserimento di: anagrafiche degli studenti, materie, argomenti, quesiti, materiali didattici), nella gestione delle interrogazioni programmate (creazione, visualizzazione, candidatura), nella gestione delle interrogazioni svolte (tipo di candidato, studenti interrogati, inserimento nuovi quesiti) e nella visualizzazione del calendario condiviso. In sintesi, le funzionalità chiave sono:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -733,7 +729,7 @@ Non richiede connessione a server esterni né autenticazione con account persona
 <p>Catalogazione delle materie per le quali sono previste interrogazioni</p>
 </li>
 <li>
-<p>Organizzazione gerarchica degli argomenti per materia</p>
+<p>Organizzazione degli argomenti per materia</p>
 </li>
 <li>
 <p>Archiviazione dei quesiti di studio per argomento</p>
@@ -754,10 +750,10 @@ Non richiede connessione a server esterni né autenticazione con account persona
 <p>Visualizzazione del calendario delle interrogazioni</p>
 </li>
 <li>
-<p>Candidatura spontanea degli studenti alle interrogazioni</p>
+<p>Candidatura spontanea degli studenti alle interrogazioni programmate</p>
 </li>
 <li>
-<p>Visualizzazione dei candidati per ogni interrogazione</p>
+<p>Visualizzazione dei candidati per ogni interrogazione programmata o svolta</p>
 </li>
 <li>
 <p>Visualizzazione degli studenti in attesa di interrogazione su un argomento</p>
@@ -768,7 +764,7 @@ Non richiede connessione a server esterni né autenticazione con account persona
 <div class="sect2">
 <h3 id="_caratteristiche_degli_utenti">2.3. Caratteristiche degli Utenti</h3>
 <div class="paragraph">
-<p>L&#8217;unico profilo utente previsto è lo <strong>Studente</strong>.
+<p>L&#8217;unico profilo utente è quello dello <strong>Studente</strong>.
 Non è prevista una distinzione tra amministratori e utenti ordinari: la filosofia cooperativa dell&#8217;app prevede che tutti i membri della classe abbiano gli stessi diritti e responsabilità.
 Ogni studente può inserire, visualizzare e candidarsi liberamente.</p>
 </div>
@@ -781,10 +777,10 @@ Ogni studente può inserire, visualizzare e candidarsi liberamente.</p>
 <p>Sviluppo esclusivo su piattaforma AppLab di Code.org.</p>
 </li>
 <li>
-<p>Utilizzo del database integrato di AppLab (API: <code>insertRecord</code>, <code>getRecords</code>, <code>updateRecord</code>, <code>deleteRecord</code>).</p>
+<p>Utilizzo del database integrato di AppLab (API: <a href="https://studio.code.org/docs/ide/applab/expressions/createRecord"><code>createRecord</code></a>, <a href="https://studio.code.org/docs/ide/applab/expressions/readRecords"><code>readRecords</code></a>, <a href="https://studio.code.org/docs/ide/applab/expressions/updateRecord"><code>updateRecord</code></a>, <a href="https://studio.code.org/docs/ide/applab/expressions/deleteRecord"><code>deleteRecord</code></a>).</p>
 </li>
 <li>
-<p>Interfaccia ottimizzata per smartphone (schermo verticale, touch-first, dimensioni 320x450px).</p>
+<p>Interfaccia ottimizzata per smartphone (schermo verticale, touch-first, dimensioni 320x450 px).</p>
 </li>
 <li>
 <p>Nessun sistema di autenticazione individuale: responsabilità condivisa dei dati.</p>
@@ -793,7 +789,7 @@ Ogni studente può inserire, visualizzare e candidarsi liberamente.</p>
 <p>Lingua dell&#8217;interfaccia: Italiano.</p>
 </li>
 <li>
-<p>L&#8217;app è pensata per essere usata da una singola classe per volta.</p>
+<p>L&#8217;app è progettata per essere usata da una singola classe per volta.</p>
 </li>
 </ul>
 </div>
@@ -812,21 +808,8 @@ L&#8217;unico attore è lo <strong>Studente</strong>, che interagisce con tutti 
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/usecase-diagram.svg" alt="usecase diagram" width="2251" height="310">
+<img src="images/usecase-diagram.svg" alt="usecase diagram" width="2254" height="310">
 </div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-Il diagramma PlantUML può essere renderizzato con <code>asciidoctor-diagram</code>.<br>
-In alternativa, la rappresentazione testuale è disponibile nella sezione successiva.
-</td>
-</tr>
-</table>
 </div>
 </div>
 <div class="sect2">
@@ -851,7 +834,7 @@ In alternativa, la rappresentazione testuale è disponibile nella sezione succes
                             │
                      ┌──────┴──────┐
                      │  :Studente  │
-                     │   (  O  )   │
+                     │     O       │
                      │    ─|─      │
                      │    / \      │
                      └─────────────┘</pre>
@@ -922,6 +905,30 @@ In alternativa, la rappresentazione testuale è disponibile nella sezione succes
 </tr>
 </tbody>
 </table>
+<div class="paragraph">
+<p>Il caso d&#8217;uso, flusso principale, considerata una tabella <code>Studente(posizione: number, cognome: string, nome: string)</code> è rappresentata dal codice seguente:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">onEvent("btnSalvaStudente", "click", function( ) {
+  // Lettura dei dati del modulo
+	var posizione = parseInt(getProperty("txtPosizione", "text"));
+	var cognome = getProperty("txtCognome", "text");
+	var nome = getProperty("txtNome", "text");
+  // Costruzione del record (oggetto Studente)
+	var studente = {
+	  "posizione": posizione,
+	  "cognome": cognome,
+	  "nome": nome
+	};
+  // Inserimento del record nella tabella Studente
+	createRecord("Studente", studente,
+	function(record){
+	  console.log("Record aggiunto: " + record.id);
+	});
+});</code></pre>
+</div>
+</div>
 </div>
 <div class="sect3">
 <h4 id="_uc2_inserisce_materie">3.3.2. UC2 — Inserisce Materie</h4>
@@ -1591,13 +1598,13 @@ In alternativa, la rappresentazione testuale è disponibile nella sezione succes
 <h2 id="_diagrammi_di_sequenza_sequence_diagrams">4. Diagrammi di Sequenza (Sequence Diagrams)</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>I diagrammi descrivono le interazioni temporali tra lo Studente, l&#8217;interfaccia dell&#8217;app (UI) e il database AppLab.</p>
+<p>I diagrammi descrivono le interazioni temporali (Codice) tra lo Studente, l&#8217;interfaccia dell&#8217;app (Intefaccia) e il database AppLab (Dati).</p>
 </div>
 <div class="sect2">
 <h3 id="_sd_01_inserimento_di_uno_studente">4.1. SD-01 — Inserimento di uno Studente</h3>
 <div class="imageblock">
 <div class="content">
-<img src="images/sd-inserimento-studente.svg" alt="sd inserimento studente" width="680" height="653">
+<img src="images/sd-inserimento-studente.svg" alt="sd inserimento studente" width="683" height="653">
 </div>
 </div>
 <div class="listingblock">
@@ -1606,7 +1613,7 @@ In alternativa, la rappresentazione testuale è disponibile nella sezione succes
        │               │               │
        │ tap 'Studenti'│               │
        │──────────────&gt;│               │
-       │               │ getRecords()  │
+       │               │ readRecords()  │
        │               │──────────────&gt;│
        │               │&lt;──────────────│ lista studenti
        │&lt;──────────────│               │
@@ -1618,7 +1625,7 @@ In alternativa, la rappresentazione testuale è disponibile nella sezione succes
        │ inserisce dati│               │
        │──────────────&gt;│               │
        │               │ valida campi  │
-       │               │ insertRecord()│
+       │               │ createRecord()│
        │               │──────────────&gt;│
        │               │&lt;──────────────│ OK
        │&lt;──────────────│ feedback      │</pre>
@@ -1629,7 +1636,7 @@ In alternativa, la rappresentazione testuale è disponibile nella sezione succes
 <h3 id="_sd_02_inserimento_interrogazione_programmata">4.2. SD-02 — Inserimento Interrogazione Programmata</h3>
 <div class="imageblock">
 <div class="content">
-<img src="images/sd-inserimento-interrogazione.svg" alt="sd inserimento interrogazione" width="679" height="911">
+<img src="images/sd-inserimento-interrogazione.svg" alt="sd inserimento interrogazione" width="682" height="911">
 </div>
 </div>
 </div>
@@ -1637,7 +1644,7 @@ In alternativa, la rappresentazione testuale è disponibile nella sezione succes
 <h3 id="_sd_03_candidatura_a_uninterrogazione">4.3. SD-03 — Candidatura a un&#8217;Interrogazione</h3>
 <div class="imageblock">
 <div class="content">
-<img src="images/sd-candidatura.svg" alt="sd candidatura" width="766" height="1134">
+<img src="images/sd-candidatura.svg" alt="sd candidatura" width="774" height="1134">
 </div>
 </div>
 </div>
@@ -1645,7 +1652,7 @@ In alternativa, la rappresentazione testuale è disponibile nella sezione succes
 <h3 id="_sd_04_visualizzazione_calendario_interrogazioni">4.4. SD-04 — Visualizzazione Calendario Interrogazioni</h3>
 <div class="imageblock">
 <div class="content">
-<img src="images/sd-calendario.svg" alt="sd calendario" width="603" height="571">
+<img src="images/sd-calendario.svg" alt="sd calendario" width="611" height="571">
 </div>
 </div>
 </div>
@@ -1653,7 +1660,7 @@ In alternativa, la rappresentazione testuale è disponibile nella sezione succes
 <h3 id="_sd_05_inserimento_materiale_didattico">4.5. SD-05 — Inserimento Materiale Didattico</h3>
 <div class="imageblock">
 <div class="content">
-<img src="images/sd-inserimento-materiale.svg" alt="sd inserimento materiale" width="571" height="733">
+<img src="images/sd-inserimento-materiale.svg" alt="sd inserimento materiale" width="575" height="733">
 </div>
 </div>
 </div>
@@ -1661,7 +1668,7 @@ In alternativa, la rappresentazione testuale è disponibile nella sezione succes
 <h3 id="_sd_06_registrazione_interrogazione_svolta">4.6. SD-06 — Registrazione Interrogazione Svolta</h3>
 <div class="imageblock">
 <div class="content">
-<img src="images/sd-registra-svolta.svg" alt="sd registra svolta" width="686" height="1115">
+<img src="images/sd-registra-svolta.svg" alt="sd registra svolta" width="694" height="1115">
 </div>
 </div>
 <div style="page-break-after: always;"></div>
@@ -1898,7 +1905,7 @@ La selezione degli argomenti supporta scelte multiple, purché tutti appartengan
 <h3 id="_diagramma_delle_classi_entity_relationship">6.1. Diagramma delle Classi (Entity-Relationship)</h3>
 <div class="imageblock">
 <div class="content">
-<img src="images/class-diagram.svg" alt="class diagram" width="1309" height="767">
+<img src="images/class-diagram.svg" alt="class diagram" width="1308" height="766">
 </div>
 </div>
 </div>
@@ -2439,7 +2446,7 @@ Tutti gli argomenti di una stessa interrogazione devono appartenere alla stessa 
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>PK(c)</code> = chiave primaria composta. L&#8217;unicità delle combinazioni con questo vincolo deve essere garantita in JavaScript prima di ogni <code>insertRecord</code>.
+<code>PK(c)</code> = chiave primaria composta. L&#8217;unicità delle combinazioni con questo vincolo deve essere garantita in JavaScript prima di ogni <code>createRecord</code>.
 </td>
 </tr>
 </table>
@@ -2526,8 +2533,8 @@ Tutti gli argomenti di una stessa interrogazione devono appartenere alla stessa 
 <p>Le operazioni di database devono usare esclusivamente le API native di AppLab:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-javascript hljs" data-lang="javascript">insertRecord(tableName, record, callback)
-getRecords(tableName, callback)
+<pre class="highlightjs highlight"><code class="language-javascript hljs" data-lang="javascript">createRecord(tableName, record, callback)
+readRecords(tableName, callback)
 updateRecord(tableName, record, callback)
 deleteRecord(tableName, record, callback)</code></pre>
 </div>
@@ -2725,6 +2732,7 @@ asciidoctor-pdf -r asciidoctor-diagram srs.adoc
 # Prerequisiti
 gem install asciidoctor
 gem install asciidoctor-diagram
+gem install asciidoctor-diagram-plantuml
 gem install asciidoctor-pdf</code></pre>
 </div>
 </div>
@@ -2751,7 +2759,7 @@ In assenza di questi strumenti, le rappresentazioni testuali nei blocchi <code>[
 <div id="footer">
 <div id="footer-text">
 Version 1.0<br>
-Last updated 2026-03-31 12:26:35 +0200
+Last updated 2026-04-09 11:03:22 +0200
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
