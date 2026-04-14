@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.23">
+<meta name="generator" content="Asciidoctor 2.0.25">
 <meta name="author" content="3B AFM">
 <title>StudyTogether&#8201;&#8212;&#8201;Specifica dei Requisiti del Software</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
@@ -117,7 +117,6 @@ h1 strong,h2 strong,h3 strong,#toctitle strong,.sidebarblock>.content>.title str
 :not(pre):not([class^=L])>code{font-size:.9375em;font-style:normal!important;letter-spacing:0;padding:.1em .5ex;word-spacing:-.15em;background:#f7f7f8;border-radius:4px;line-height:1.45;text-rendering:optimizeSpeed}
 pre{color:rgba(0,0,0,.9);font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;line-height:1.45;text-rendering:optimizeSpeed}
 pre code,pre pre{color:inherit;font-size:inherit;line-height:inherit}
-pre>code{display:block}
 pre.nowrap,pre.nowrap pre{white-space:pre;word-wrap:normal}
 em em{font-style:normal}
 strong strong{font-weight:400}
@@ -220,6 +219,7 @@ table.tableblock.fit-content>caption.title{white-space:nowrap;width:0}
 .literalblock pre,.listingblock>.content>pre:not(.highlight),.listingblock>.content>pre[class=highlight],.listingblock>.content>pre[class^="highlight "]{background:#f7f7f8}
 .literalblock.output pre{color:#f7f7f8;background:rgba(0,0,0,.9)}
 .listingblock>.content{position:relative}
+.listingblock pre>code{display:block}
 .listingblock code[data-lang]::before{display:none;content:attr(data-lang);position:absolute;font-size:.75em;top:.425rem;right:.5rem;line-height:1;text-transform:uppercase;color:inherit;opacity:.5}
 .listingblock:hover code[data-lang]::before{display:block}
 .listingblock.terminal pre .command::before{content:attr(data-prompt);padding-right:.5em;color:inherit;opacity:.5}
@@ -449,7 +449,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toc" class="toc2">
 <div id="toctitle">Indice</div>
 <ul class="sectlevel1">
-<li><a href="#_introduzione">1. Introduzione</a>
+<li><a href="#_introduzione">Capitolo 1. Introduzione</a>
 <ul class="sectlevel2">
 <li><a href="#_scopo_del_documento">1.1. Scopo del Documento</a></li>
 <li><a href="#_scopo_dellapplicazione_e_visione_collaborativa">1.2. Scopo dell&#8217;Applicazione e Visione Collaborativa</a></li>
@@ -458,7 +458,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_riferimenti">1.5. Riferimenti</a></li>
 </ul>
 </li>
-<li><a href="#_descrizione_generale_del_sistema">2. Descrizione Generale del Sistema</a>
+<li><a href="#_descrizione_generale_del_sistema">Capitolo 2. Descrizione Generale del Sistema</a>
 <ul class="sectlevel2">
 <li><a href="#_prospettiva_del_sistema">2.1. Prospettiva del Sistema</a></li>
 <li><a href="#_funzionalità_principali">2.2. Funzionalità Principali</a></li>
@@ -466,7 +466,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_vincoli_e_assunzioni">2.4. Vincoli e Assunzioni</a></li>
 </ul>
 </li>
-<li><a href="#_diagramma_dei_casi_duso_use_case_diagram">3. Diagramma dei Casi d&#8217;Uso (Use Case Diagram)</a>
+<li><a href="#_diagramma_dei_casi_duso_use_case_diagram">Capitolo 3. Diagramma dei Casi d&#8217;Uso (Use Case Diagram)</a>
 <ul class="sectlevel2">
 <li><a href="#_schema_del_diagramma">3.1. Schema del Diagramma</a></li>
 <li><a href="#_rappresentazione_testuale_del_diagramma">3.2. Rappresentazione Testuale del Diagramma</a></li>
@@ -487,7 +487,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 </ul>
 </li>
-<li><a href="#_diagrammi_di_sequenza_sequence_diagrams">4. Diagrammi di Sequenza (Sequence Diagrams)</a>
+<li><a href="#_diagrammi_di_sequenza_sequence_diagrams">Capitolo 4. Diagrammi di Sequenza (Sequence Diagrams)</a>
 <ul class="sectlevel2">
 <li><a href="#_sd_01_inserimento_di_uno_studente">4.1. SD-01 — Inserimento di uno Studente</a></li>
 <li><a href="#_sd_02_inserimento_interrogazione_programmata">4.2. SD-02 — Inserimento Interrogazione Programmata</a></li>
@@ -497,7 +497,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_sd_06_registrazione_interrogazione_svolta">4.6. SD-06 — Registrazione Interrogazione Svolta</a></li>
 </ul>
 </li>
-<li><a href="#_wireframe_diagram">5. Wireframe Diagram</a>
+<li><a href="#_wireframe_diagram">Capitolo 5. Wireframe Diagram</a>
 <ul class="sectlevel2">
 <li><a href="#_w01_home_dashboard">5.1. W01 — Home / Dashboard</a></li>
 <li><a href="#_w02_calendario_interrogazioni">5.2. W02 — Calendario Interrogazioni</a></li>
@@ -507,13 +507,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_w06_materie_e_argomenti">5.6. W06 — Materie e Argomenti</a></li>
 </ul>
 </li>
-<li><a href="#_modello_dei_dati">6. Modello dei Dati</a>
+<li><a href="#_modello_dei_dati">Capitolo 6. Modello dei Dati</a>
 <ul class="sectlevel2">
 <li><a href="#_diagramma_delle_classi_entity_relationship">6.1. Diagramma delle Classi (Entity-Relationship)</a></li>
 <li><a href="#_struttura_delle_tabelle_applab">6.2. Struttura delle Tabelle AppLab</a></li>
 </ul>
 </li>
-<li><a href="#_requisiti_non_funzionali">7. Requisiti Non Funzionali</a>
+<li><a href="#_requisiti_non_funzionali">Capitolo 7. Requisiti Non Funzionali</a>
 <ul class="sectlevel2">
 <li><a href="#_usabilità">7.1. Usabilità</a></li>
 <li><a href="#_affidabilità">7.2. Affidabilità</a></li>
@@ -522,7 +522,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_vincoli_di_progettazione_applab">7.5. Vincoli di Progettazione (AppLab)</a></li>
 </ul>
 </li>
-<li><a href="#_visione_pedagogica_e_collaborativa">8. Visione Pedagogica e Collaborativa</a>
+<li><a href="#_visione_pedagogica_e_collaborativa">Capitolo 8. Visione Pedagogica e Collaborativa</a>
 <ul class="sectlevel2">
 <li><a href="#_linformatica_come_strumento_di_cooperazione">8.1. L&#8217;Informatica come Strumento di Cooperazione</a></li>
 <li><a href="#_mapping_pedagogia_funzionalità">8.2. Mapping Pedagogia → Funzionalità</a></li>
@@ -584,7 +584,7 @@ Realizzata con <a href="https://studio.code.org/projects/applab/">AppLab di Code
 </div>
 </div>
 <div class="sect1">
-<h2 id="_introduzione">1. Introduzione</h2>
+<h2 id="_introduzione">Capitolo 1. Introduzione</h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="_scopo_del_documento">1.1. Scopo del Documento</h3>
@@ -705,7 +705,7 @@ La piattaforma AppLab di Code.org consente lo sviluppo di app data-driven per sm
 </div>
 </div>
 <div class="sect1">
-<h2 id="_descrizione_generale_del_sistema">2. Descrizione Generale del Sistema</h2>
+<h2 id="_descrizione_generale_del_sistema">Capitolo 2. Descrizione Generale del Sistema</h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="_prospettiva_del_sistema">2.1. Prospettiva del Sistema</h3>
@@ -798,7 +798,7 @@ Ogni studente può inserire, visualizzare e candidarsi liberamente.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_diagramma_dei_casi_duso_use_case_diagram">3. Diagramma dei Casi d&#8217;Uso (Use Case Diagram)</h2>
+<h2 id="_diagramma_dei_casi_duso_use_case_diagram">Capitolo 3. Diagramma dei Casi d&#8217;Uso (Use Case Diagram)</h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="_schema_del_diagramma">3.1. Schema del Diagramma</h3>
@@ -808,7 +808,7 @@ L&#8217;unico attore è lo <strong>Studente</strong>, che interagisce con tutti 
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/usecase-diagram.svg" alt="usecase diagram" width="2254" height="310">
+<img src="images/usecase-diagram.svg" alt="usecase diagram" width="339" height="1180">
 </div>
 </div>
 </div>
@@ -910,22 +910,54 @@ L&#8217;unico attore è lo <strong>Studente</strong>, che interagisce con tutti 
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">onEvent("btnSalvaStudente", "click", function( ) {
-  // Lettura dei dati del modulo
+<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">function violaUnicita(tupla, relazione, attributi) {
+  // relazione deve essere una lista
+  // attributi è un solo attributo
+  if (typeof attributi === 'string') {
+    // violazione se esiste un elemento con stesso attributo
+    for (var i = 0; i &lt; relazione.length; i++) {
+      var tuplaCorrente = relazione[i];
+      if (tuplaCorrente[attributi] == tupla[attributi]) {
+        console.log("Vincolo di unicità (singolo attributo) non rispettato");
+        return true;
+      }
+    }
+    return false;
+  } else {
+    // violazione se esiste un elemento con tutti gli attributi uguali
+    for (i = 0; i &lt; relazione.length; i++) {
+      tuplaCorrente = relazione[i];
+      var violazione = true;
+      for (var j = 0; j &lt; attributi.length; j++) {
+        if (tuplaCorrente[attributi[j]] != tupla[attributi[j]])
+          violazione = false;
+      }
+      if (violazione) {
+        console.log("Vincolo di unicità (attributi multipli) non rispettato");
+        return true;
+      }
+    }
+    return false;
+  }
+}
+onEvent("btnSalvaStudente", "click", function( ) {
+  // posizione nel registro elettronico
 	var posizione = parseInt(getProperty("txtPosizione", "text"));
 	var cognome = getProperty("txtCognome", "text");
 	var nome = getProperty("txtNome", "text");
-  // Costruzione del record (oggetto Studente)
+	// crea l'oggetto studente
 	var studente = {
 	  "posizione": posizione,
 	  "cognome": cognome,
 	  "nome": nome
 	};
-  // Inserimento del record nella tabella Studente
-	createRecord("Studente", studente,
-	function(record){
-	  console.log("Record aggiunto: " + record.id);
-	});
+	var elenco = readRecordsSync("Studente");
+	if (!violaUnicita(studente, elenco, "posizione") &amp;&amp;
+	    !violaUnicita(studente, elenco, ["cognome", "nome"]))
+  	createRecord("Studente", studente,
+  	function(record){
+  	  console.log("Record aggiunto: id = " + record.id);
+  	});
 });</code></pre>
 </div>
 </div>
@@ -1595,7 +1627,7 @@ L&#8217;unico attore è lo <strong>Studente</strong>, che interagisce con tutti 
 </div>
 </div>
 <div class="sect1">
-<h2 id="_diagrammi_di_sequenza_sequence_diagrams">4. Diagrammi di Sequenza (Sequence Diagrams)</h2>
+<h2 id="_diagrammi_di_sequenza_sequence_diagrams">Capitolo 4. Diagrammi di Sequenza (Sequence Diagrams)</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>I diagrammi descrivono le interazioni temporali (Codice) tra lo Studente, l&#8217;interfaccia dell&#8217;app (Intefaccia) e il database AppLab (Dati).</p>
@@ -1636,7 +1668,7 @@ L&#8217;unico attore è lo <strong>Studente</strong>, che interagisce con tutti 
 <h3 id="_sd_02_inserimento_interrogazione_programmata">4.2. SD-02 — Inserimento Interrogazione Programmata</h3>
 <div class="imageblock">
 <div class="content">
-<img src="images/sd-inserimento-interrogazione.svg" alt="sd inserimento interrogazione" width="682" height="911">
+<img src="images/sd-inserimento-interrogazione.svg" alt="sd inserimento interrogazione" width="654" height="884">
 </div>
 </div>
 </div>
@@ -1644,7 +1676,7 @@ L&#8217;unico attore è lo <strong>Studente</strong>, che interagisce con tutti 
 <h3 id="_sd_03_candidatura_a_uninterrogazione">4.3. SD-03 — Candidatura a un&#8217;Interrogazione</h3>
 <div class="imageblock">
 <div class="content">
-<img src="images/sd-candidatura.svg" alt="sd candidatura" width="774" height="1134">
+<img src="images/sd-candidatura.svg" alt="sd candidatura" width="746" height="1134">
 </div>
 </div>
 </div>
@@ -1660,7 +1692,7 @@ L&#8217;unico attore è lo <strong>Studente</strong>, che interagisce con tutti 
 <h3 id="_sd_05_inserimento_materiale_didattico">4.5. SD-05 — Inserimento Materiale Didattico</h3>
 <div class="imageblock">
 <div class="content">
-<img src="images/sd-inserimento-materiale.svg" alt="sd inserimento materiale" width="575" height="733">
+<img src="images/sd-inserimento-materiale.svg" alt="sd inserimento materiale" width="575" height="688">
 </div>
 </div>
 </div>
@@ -1668,7 +1700,7 @@ L&#8217;unico attore è lo <strong>Studente</strong>, che interagisce con tutti 
 <h3 id="_sd_06_registrazione_interrogazione_svolta">4.6. SD-06 — Registrazione Interrogazione Svolta</h3>
 <div class="imageblock">
 <div class="content">
-<img src="images/sd-registra-svolta.svg" alt="sd registra svolta" width="694" height="1115">
+<img src="images/sd-registra-svolta.svg" alt="sd registra svolta" width="694" height="1052">
 </div>
 </div>
 <div style="page-break-after: always;"></div>
@@ -1676,7 +1708,7 @@ L&#8217;unico attore è lo <strong>Studente</strong>, che interagisce con tutti 
 </div>
 </div>
 <div class="sect1">
-<h2 id="_wireframe_diagram">5. Wireframe Diagram</h2>
+<h2 id="_wireframe_diagram">Capitolo 5. Wireframe Diagram</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>I wireframe illustrano la struttura e il layout delle schermate principali di StudyTogether.
@@ -1899,13 +1931,13 @@ La selezione degli argomenti supporta scelte multiple, purché tutti appartengan
 </div>
 </div>
 <div class="sect1">
-<h2 id="_modello_dei_dati">6. Modello dei Dati</h2>
+<h2 id="_modello_dei_dati">Capitolo 6. Modello dei Dati</h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="_diagramma_delle_classi_entity_relationship">6.1. Diagramma delle Classi (Entity-Relationship)</h3>
 <div class="imageblock">
 <div class="content">
-<img src="images/class-diagram.svg" alt="class diagram" width="1308" height="766">
+<img src="images/class-diagram.svg" alt="class diagram" width="1095" height="723">
 </div>
 </div>
 </div>
@@ -1933,12 +1965,6 @@ La selezione degli argomenti supporta scelte multiple, purché tutti appartengan
 <td class="tableblock halign-left valign-top"><p class="tableblock">Number</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">PK (auto)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Generata da AppLab</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>posizioneStudente</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Number</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">AK</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Numero di lista in classe</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>cognome</code></p></td>
@@ -1978,12 +2004,6 @@ La selezione degli argomenti supporta scelte multiple, purché tutti appartengan
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>codiceMateria</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">AK</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Es. <code>MAT</code>, <code>ITA</code>, <code>STO</code></p></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>materia</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
 <td class="tableblock halign-left valign-top"></td>
@@ -2015,16 +2035,10 @@ La selezione degli argomenti supporta scelte multiple, purché tutti appartengan
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>codiceArgomento</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">AK</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>codiceMateria</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>idMateria</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Number</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">FK</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">→ <code>Materia.codiceMateria</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">→ <code>Materia.id</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>argomento</code></p></td>
@@ -2058,16 +2072,10 @@ La selezione degli argomenti supporta scelte multiple, purché tutti appartengan
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>codiceQuesito</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">AK</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>codiceArgomento</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>idArgomento</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Number</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">FK</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">→ <code>Argomento.codiceArgomento</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">→ <code>Argomento.id</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>quesito</code></p></td>
@@ -2099,12 +2107,6 @@ La selezione degli argomenti supporta scelte multiple, purché tutti appartengan
 <td class="tableblock halign-left valign-top"><p class="tableblock">Number</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">PK (auto)</p></td>
 <td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>codiceInterrogazione</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">AK</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Generato automaticamente</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>numeroInterrogati</code></p></td>
@@ -2150,16 +2152,16 @@ La selezione degli argomenti supporta scelte multiple, purché tutti appartengan
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>codiceInterrogazione</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">FK + PK(c)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">→ <code>InterrogazioneProgrammata.codiceInterrogazione</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>idInterrogazione</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Number</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FK</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">→ <code>InterrogazioneProgrammata.id</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>codiceArgomento</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">FK + PK(c)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">→ <code>Argomento.codiceArgomento</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>idArgomento</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Number</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FK</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">→ <code>Argomento.id</code></p></td>
 </tr>
 </tbody>
 </table>
@@ -2199,16 +2201,16 @@ Tutti gli argomenti di una stessa interrogazione devono appartenere alla stessa 
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>codiceInterrogazione</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">FK + PK(c)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">→ <code>InterrogazioneProgrammata.codiceInterrogazione</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>idInterrogazione</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Number</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FK</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">→ <code>InterrogazioneProgrammata.id</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>posizioneStudente</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>idStudente</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Number</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">FK + PK(c)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">→ <code>Studente.posizioneStudente</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FK</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">→ <code>Studente.id</code></p></td>
 </tr>
 </tbody>
 </table>
@@ -2233,12 +2235,6 @@ Tutti gli argomenti di una stessa interrogazione devono appartenere alla stessa 
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>id</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Number</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">PK (auto)</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>codiceMateriale</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">AK</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
@@ -2291,22 +2287,16 @@ Tutti gli argomenti di una stessa interrogazione devono appartenere alla stessa 
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>codiceRiferimento</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">AK</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>idQuesito</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Number</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FK</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">→ <code>Quesito.id</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>codiceQuesito</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>idMateriale</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Number</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">FK</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">→ <code>Quesito.codiceQuesito</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>codiceMateriale</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">FK</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">→ <code>MaterialeDidattico.codiceMateriale</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">→ <code>MaterialeDidattico.id</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>dettaglio</code></p></td>
@@ -2340,16 +2330,10 @@ Tutti gli argomenti di una stessa interrogazione devono appartenere alla stessa 
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>codiceInterrSvolta</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">AK</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Generato automaticamente</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>codiceInterrogazione</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>idInterrogazione</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Number</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">FK</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">→ <code>InterrogazioneProgrammata</code> — facoltativo (può essere <code>""</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">→ <code>InterrogazioneProgrammata.id</code> — facoltativo (<code>null</code> se non pianificata)</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>data</code></p></td>
@@ -2389,16 +2373,16 @@ Tutti gli argomenti di una stessa interrogazione devono appartenere alla stessa 
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>codiceInterrSvolta</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">FK + PK(c)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">→ <code>InterrogazioneSvolta.codiceInterrSvolta</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>idInterrSvolta</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Number</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FK</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">→ <code>InterrogazioneSvolta.id</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>codiceArgomento</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">FK + PK(c)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">→ <code>Argomento.codiceArgomento</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>idArgomento</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Number</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FK</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">→ <code>Argomento.id</code></p></td>
 </tr>
 </tbody>
 </table>
@@ -2426,16 +2410,16 @@ Tutti gli argomenti di una stessa interrogazione devono appartenere alla stessa 
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>codiceInterrSvolta</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">FK + PK(c)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">→ <code>InterrogazioneSvolta.codiceInterrSvolta</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>idInterrSvolta</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Number</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FK</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">→ <code>InterrogazioneSvolta.id</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>posizioneStudente</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>idStudente</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Number</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">FK + PK(c)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">→ <code>Studente.posizioneStudente</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FK</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">→ <code>Studente.id</code></p></td>
 </tr>
 </tbody>
 </table>
@@ -2446,7 +2430,7 @@ Tutti gli argomenti di una stessa interrogazione devono appartenere alla stessa 
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>PK(c)</code> = chiave primaria composta. L&#8217;unicità delle combinazioni con questo vincolo deve essere garantita in JavaScript prima di ogni <code>createRecord</code>.
+Nelle tabelle di relazione (<code>IntProgArgomento</code>, <code>AssegnazioneStudenti</code>, <code>IntSvoltaArgomento</code>, <code>StudentiInterrogati</code>) l&#8217;unicità delle coppie di chiavi esterne deve essere garantita in JavaScript prima di ogni <code>createRecord</code>.
 </td>
 </tr>
 </table>
@@ -2456,7 +2440,7 @@ Tutti gli argomenti di una stessa interrogazione devono appartenere alla stessa 
 </div>
 </div>
 <div class="sect1">
-<h2 id="_requisiti_non_funzionali">7. Requisiti Non Funzionali</h2>
+<h2 id="_requisiti_non_funzionali">Capitolo 7. Requisiti Non Funzionali</h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="_usabilità">7.1. Usabilità</h3>
@@ -2550,7 +2534,7 @@ deleteRecord(tableName, record, callback)</code></pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_visione_pedagogica_e_collaborativa">8. Visione Pedagogica e Collaborativa</h2>
+<h2 id="_visione_pedagogica_e_collaborativa">Capitolo 8. Visione Pedagogica e Collaborativa</h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="_linformatica_come_strumento_di_cooperazione">8.1. L&#8217;Informatica come Strumento di Cooperazione</h3>
@@ -2759,7 +2743,7 @@ In assenza di questi strumenti, le rappresentazioni testuali nei blocchi <code>[
 <div id="footer">
 <div id="footer-text">
 Version 1.0<br>
-Last updated 2026-04-09 11:03:22 +0200
+Last updated 2026-04-14 13:15:27 +0200
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>

@@ -43,39 +43,39 @@ deleteRecord(tableName, record, callback)
 
 ## Modello dei dati (12 tabelle)
 
-AppLab genera automaticamente un campo `id` (Number, PK) per ogni tabella. La logica di dominio usa le **chiavi naturali/alternate**, non `id`.
+AppLab genera automaticamente un campo `id` (Number, PK) per ogni tabella. Le relazioni tra tabelle devono usare sempre questo identificatore numerico.
 
 ### Dati anagrafici
 
-| Tabella | Chiave naturale | Campi |
+| Tabella | Chiave primaria | Campi |
 |---|---|---|
-| `Studente` | `posizioneStudente` (Number) | `cognome`, `nome` |
-| `Materia` | `codiceMateria` (String, es. `MAT`) | `materia` |
-| `Argomento` | `codiceArgomento` (String) | `codiceMateria` FK, `argomento` |
-| `Quesito` | `codiceQuesito` (String) | `codiceArgomento` FK, `quesito` |
-| `MaterialeDidattico` | `codiceMateriale` (String) | `tipo`, `titolo`, `autore` (opt), `url` (opt) |
-| `Riferimento` | `codiceRiferimento` (String) | `codiceQuesito` FK, `codiceMateriale` FK, `dettaglio` |
+| `Studente` | `id` (Number, auto) | `cognome`, `nome` |
+| `Materia` | `id` (Number, auto) | `materia` |
+| `Argomento` | `id` (Number, auto) | `idMateria` FK, `argomento` |
+| `Quesito` | `id` (Number, auto) | `idArgomento` FK, `quesito` |
+| `MaterialeDidattico` | `id` (Number, auto) | `tipo`, `titolo`, `autore` (opt), `url` (opt) |
+| `Riferimento` | `id` (Number, auto) | `idQuesito` FK, `idMateriale` FK, `dettaglio` |
 
 `tipo` di `MaterialeDidattico`: `libro` \| `sito` \| `articolo` \| `rivista` \| `video` \| `podcast`  
 `dettaglio` di `Riferimento`: testo libero, es. `"pp. 42–56"`, `"cap. 3"`, `"min 12:30–25:00"`
 
 ### Interrogazioni programmate
 
-| Tabella | Chiave | Campi |
+| Tabella | Chiave primaria | Campi |
 |---|---|---|
-| `InterrogazioneProgrammata` | `codiceInterrogazione` (String, auto-generato) | `numeroInterrogati`, `data` (`gg/mm/aaaa`), `ora` (`hh:mm`) |
-| `IntProgArgomento` | composta (`codiceInterrogazione` + `codiceArgomento`) | giunzione — tutti gli argomenti devono appartenere alla **stessa materia** |
-| `AssegnazioneStudenti` | composta (`codiceInterrogazione` + `posizioneStudente`) | candidature volontarie |
+| `InterrogazioneProgrammata` | `id` (Number, auto) | `numeroInterrogati`, `data` (`gg/mm/aaaa`), `ora` (`hh:mm`) |
+| `IntProgArgomento` | `id` (Number, auto) | `idInterrogazione` FK, `idArgomento` FK — tutti gli argomenti devono appartenere alla **stessa materia** |
+| `AssegnazioneStudenti` | `id` (Number, auto) | `idInterrogazione` FK, `idStudente` FK |
 
 ### Interrogazioni svolte
 
-| Tabella | Chiave | Campi |
+| Tabella | Chiave primaria | Campi |
 |---|---|---|
-| `InterrogazioneSvolta` | `codiceInterrSvolta` (String, auto-generato) | `codiceInterrogazione` FK **opzionale**, `data`, `ora` |
-| `IntSvoltaArgomento` | composta (`codiceInterrSvolta` + `codiceArgomento`) | giunzione |
-| `StudentiInterrogati` | composta (`codiceInterrSvolta` + `posizioneStudente`) | studenti effettivamente interrogati |
+| `InterrogazioneSvolta` | `id` (Number, auto) | `idInterrogazione` FK **opzionale**, `data`, `ora` |
+| `IntSvoltaArgomento` | `id` (Number, auto) | `idInterrSvolta` FK, `idArgomento` FK |
+| `StudentiInterrogati` | `id` (Number, auto) | `idInterrSvolta` FK, `idStudente` FK |
 
-> Un'`InterrogazioneSvolta` può esistere senza essere collegata a una `InterrogazioneProgrammata` (interrogazione non pianificata). Il campo `codiceInterrogazione` viene lasciato `""` in quel caso.
+> Un'`InterrogazioneSvolta` può esistere senza essere collegata a una `InterrogazioneProgrammata` (interrogazione non pianificata). Il campo `idInterrogazione` viene lasciato `null` in quel caso.
 
 ---
 
@@ -116,10 +116,11 @@ interr.forEach(function(i) {
 ## Convenzioni chiave
 
 - **Lingua**: tutta l'interfaccia, i messaggi di errore, i commenti nel codice e la SRS sono in **italiano**.
-- **Chiavi auto-generate**: i codici (`codiceInterrogazione`, `codiceInterrSvolta`, `codiceMateriale`, ecc.) vanno generati in JS (es. timestamp + suffisso random) prima dell'`insertRecord`.
-- **Unicità**: verificare l'assenza di duplicati sulla chiave naturale con `getRecords` + filtro nel callback **prima** di ogni `insertRecord`.
-- **Vincolo stessa materia**: in `IntProgArgomento`, tutti gli argomenti di una stessa interrogazione devono avere lo stesso `codiceMateria` — controllare in JS prima di salvare (UC5 alt. 3b).
-- **Posti disponibili**: `numeroInterrogati` in `InterrogazioneProgrammata` è il massimo; il numero di candidature attuali si conta filtrando `AssegnazioneStudenti` per `codiceInterrogazione`.
+- **Chiave primaria**: il campo `id` assegnato automaticamente da AppLab e' l'unica chiave primaria di ogni tabella.
+- **Chiavi esterne**: tutti i riferimenti tra tabelle devono usare gli identificatori numerici `id...` (`idMateria`, `idArgomento`, `idInterrogazione`, `idStudente`, `idQuesito`, `idMateriale`, `idInterrSvolta`).
+- **Unicità**: verificare in JavaScript l'assenza di duplicati logici e, per le tabelle di giunzione, l'assenza di duplicati sulle coppie di chiavi esterne prima di ogni `insertRecord`.
+- **Vincolo stessa materia**: in `IntProgArgomento`, tutti gli argomenti di una stessa interrogazione devono avere lo stesso `idMateria` — controllare in JS prima di salvare (UC5 alt. 3b).
+- **Posti disponibili**: `numeroInterrogati` in `InterrogazioneProgrammata` e' il massimo; il numero di candidature attuali si conta filtrando `AssegnazioneStudenti` per `idInterrogazione`.
 - **Studenti in attesa**: un candidato è "in attesa" se è in `AssegnazioneStudenti` per un'interrogazione futura che copre un argomento, ma **non** appare in `StudentiInterrogati` per nessuna `InterrogazioneSvolta` che copre lo stesso argomento.
 - Le operazioni di database devono essere incapsulate in **funzioni helper** (una per tipo di operazione per tabella).
 

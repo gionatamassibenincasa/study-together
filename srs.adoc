@@ -274,22 +274,54 @@ a|
 Il caso d'uso, flusso principale, considerata una tabella `Studente(posizione: number, cognome: string, nome: string)` è rappresentata dal codice seguente:
 
 ```js
+function violaUnicita(tupla, relazione, attributi) {
+  // relazione deve essere una lista
+  // attributi è un solo attributo
+  if (typeof attributi === 'string') {
+    // violazione se esiste un elemento con stesso attributo
+    for (var i = 0; i < relazione.length; i++) {
+      var tuplaCorrente = relazione[i];
+      if (tuplaCorrente[attributi] == tupla[attributi]) {
+        console.log("Vincolo di unicità (singolo attributo) non rispettato");
+        return true;
+      }
+    }
+    return false;
+  } else {
+    // violazione se esiste un elemento con tutti gli attributi uguali
+    for (i = 0; i < relazione.length; i++) {
+      tuplaCorrente = relazione[i];
+      var violazione = true;
+      for (var j = 0; j < attributi.length; j++) {
+        if (tuplaCorrente[attributi[j]] != tupla[attributi[j]])
+          violazione = false;
+      }
+      if (violazione) {
+        console.log("Vincolo di unicità (attributi multipli) non rispettato");
+        return true;
+      }
+    }
+    return false;
+  }
+}
 onEvent("btnSalvaStudente", "click", function( ) {
-  // Lettura dei dati del modulo
+  // posizione nel registro elettronico
 	var posizione = parseInt(getProperty("txtPosizione", "text"));
 	var cognome = getProperty("txtCognome", "text");
 	var nome = getProperty("txtNome", "text");
-  // Costruzione del record (oggetto Studente)
+	// crea l'oggetto studente
 	var studente = {
 	  "posizione": posizione,
 	  "cognome": cognome,
 	  "nome": nome
 	};
-  // Inserimento del record nella tabella Studente
-	createRecord("Studente", studente,
-	function(record){
-	  console.log("Record aggiunto: " + record.id);
-	});
+	var elenco = readRecordsSync("Studente");
+	if (!violaUnicita(studente, elenco, "posizione") &&
+	    !violaUnicita(studente, elenco, ["cognome", "nome"]))
+  	createRecord("Studente", studente,
+  	function(record){
+  	  console.log("Record aggiunto: id = " + record.id);
+  	});
 });
 ```
 
@@ -616,11 +648,10 @@ S -> UI : sceglie argomento + data/ora/posti
 UI -> UI : valida data (>= oggi)\nvalida posti (> 0)
 
 alt dati validi
-  UI -> UI : genera codiceInterrogazione
-  UI -> DB : createRecord("InterrogazioneProgrammata", {...})
-  DB --> UI : OK
+  UI -> DB : createRecord("InterrogazioneProgrammata",\n  {numeroInterrogati, data, ora})
+  DB --> UI : record creato con idInterrogazione
   loop per ogni argomento selezionato
-    UI -> DB : createRecord("IntProgArgomento",\n  {codiceInterrogazione,\n   codiceArgomento})
+    UI -> DB : createRecord("IntProgArgomento",\n  {idInterrogazione,\n   idArgomento})
     DB --> UI : OK
   end
   UI --> S : "Interrogazione salvata!"
@@ -645,11 +676,11 @@ database "Database\nAppLab" as DB
 S -> UI : tap interrogazione nel calendario
 UI -> DB : readRecords("InterrogazioneProgrammata")
 DB --> UI : lista interrogazioni
-note right: filtra client-side\nper codiceInterrogazione
+note right: filtra client-side\nper idInterrogazione
 
 UI -> DB : readRecords("AssegnazioneStudenti")
 DB --> UI : candidature
-note right: filtra client-side\nper codiceInterrogazione
+note right: filtra client-side\nper idInterrogazione
 
 alt posti disponibili
   UI --> S : scheda + btn "Candidati"
@@ -661,11 +692,11 @@ alt posti disponibili
   S -> UI : sceglie sé stesso
   UI -> DB : readRecords("AssegnazioneStudenti")
   DB --> UI : tutte le candidature dello studente
-  note right: filtra client-side\nper posizioneStudente
+  note right: filtra client-side\nper idStudente
   UI -> UI : verifica: nessun conflitto\n(stessa interrogazione o stessa data)
 
   alt nessun conflitto
-    UI -> DB : createRecord("AssegnazioneStudenti",\n  {codiceInterrogazione,\n   posizioneStudente})
+    UI -> DB : createRecord("AssegnazioneStudenti",\n  {idInterrogazione,\n   idStudente})
     DB --> UI : OK
     UI --> S : "Candidatura confermata!"
   else già candidato (stessa interrogazione)
@@ -733,8 +764,7 @@ S -> UI : inserisce (tipo, titolo, autore?, url?)
 UI -> UI : valida tipo e titolo
 
 alt campi obbligatori presenti
-  UI -> UI : genera codiceMateriale
-  UI -> DB : createRecord("MaterialeDidattico",\n  {codiceMateriale, tipo, titolo,\n   autore, url})
+  UI -> DB : createRecord("MaterialeDidattico",\n  {tipo, titolo,\n   autore, url})
   DB --> UI : OK
   UI --> S : "Materiale salvato!"
 else campi mancanti
@@ -771,15 +801,14 @@ S -> UI : sceglie (opt) interrogazione programmata,\nargomenti, studenti interro
 UI -> UI : valida: almeno un argomento,\nalmeno uno studente, data non futura
 
 alt dati validi
-  UI -> UI : genera codiceInterrSvolta
-  UI -> DB : createRecord("InterrogazioneSvolta",\n  {codiceInterrSvolta,\n   codiceInterrogazione?,\n   data, ora})
-  DB --> UI : OK
+  UI -> DB : createRecord("InterrogazioneSvolta",\n  {idInterrogazione?,\n   data, ora})
+  DB --> UI : record creato con idInterrSvolta
   loop per ogni argomento selezionato
-    UI -> DB : createRecord("IntSvoltaArgomento",\n  {codiceInterrSvolta,\n   codiceArgomento})
+    UI -> DB : createRecord("IntSvoltaArgomento",\n  {idInterrSvolta,\n   idArgomento})
     DB --> UI : OK
   end
   loop per ogni studente interrogato
-    UI -> DB : createRecord("StudentiInterrogati",\n  {codiceInterrSvolta,\n   posizioneStudente})
+    UI -> DB : createRecord("StudentiInterrogati",\n  {idInterrSvolta,\n   idStudente})
     DB --> UI : OK
   end
   UI --> S : "Interrogazione svolta registrata!"
@@ -1010,30 +1039,30 @@ hide circle
 hide method
 
 class Studente {
-  **posizioneStudente** : Number
+  **id** : Number
   cognome : String
   nome : String
 }
 
 class Materia {
-  **codiceMateria** : String
+  **id** : Number
   materia : String
 }
 
 class Argomento {
-  **codiceArgomento** : String
-  //codiceMateria// : String
+  **id** : Number
+  //idMateria// : Number
   argomento : String
 }
 
 class Quesito {
-  **codiceQuesito** : String
-  //codiceArgomento// : String
+  **id** : Number
+  //idArgomento// : Number
   quesito : String
 }
 
 class MaterialeDidattico {
-  **codiceMateriale** : String
+  **id** : Number
   tipo : String
   titolo : String
   autore : String
@@ -1041,59 +1070,63 @@ class MaterialeDidattico {
 }
 
 class Riferimento {
-  **codiceRiferimento** : String
-  //codiceQuesito// : String
-  //codiceMateriale// : String
+  **id** : Number
+  //idQuesito// : Number
+  //idMateriale// : Number
   dettaglio : String
 }
 
 class InterrogazioneProgrammata {
-  **codiceInterrogazione** : String
+  **id** : Number
   numeroInterrogati : Number
   data : String
   ora : String
 }
 
 class IntProgArgomento {
-  //**codiceInterrogazione**// : String
-  //**codiceArgomento**// : String
+  **id** : Number
+  //idInterrogazione// : Number
+  //idArgomento// : Number
 }
 
 class AssegnazioneStudenti {
-  //**codiceInterrogazione**// : String
-  //**posizioneStudente**// : Number
+  **id** : Number
+  //idInterrogazione// : Number
+  //idStudente// : Number
 }
 
 class InterrogazioneSvolta {
-  **codiceInterrSvolta** : String
-  //codiceInterrogazione// : String
+  **id** : Number
+  //idInterrogazione// : Number
   data : String
   ora : String
 }
 
 class IntSvoltaArgomento {
-  //**codiceInterrSvolta**// : String
-  //**codiceArgomento**// : String
+  **id** : Number
+  //idInterrSvolta// : Number
+  //idArgomento// : Number
 }
 
 class StudentiInterrogati {
-  //**codiceInterrSvolta**// : String
-  //**posizioneStudente**// : Number
+  **id** : Number
+  //idInterrSvolta// : Number
+  //idStudente// : Number
 }
 
-Materia "1" <-- "n" Argomento : codiceMateria >
-Argomento "1" <-- "n" Quesito : codiceArgomento >
-Quesito "1" <-- "n" Riferimento : codiceQuesito >
-MaterialeDidattico "1" <-- "n" Riferimento : codiceMateriale >
-InterrogazioneProgrammata "1" <-- "n" IntProgArgomento : codiceInterrogazione >
-Argomento "1" <-- "n" IntProgArgomento : codiceArgomento >
-InterrogazioneProgrammata "1" <-- "n" AssegnazioneStudenti : codiceInterrogazione >
-Studente "1" <-- "n" AssegnazioneStudenti : posizioneStudente >
-InterrogazioneProgrammata "1" <-- "0..n" InterrogazioneSvolta : codiceInterrogazione >
-InterrogazioneSvolta "1" <-- "n" IntSvoltaArgomento : codiceInterrSvolta >
-Argomento "1" <-- "n" IntSvoltaArgomento : codiceArgomento >
-InterrogazioneSvolta "1" <-- "n" StudentiInterrogati : codiceInterrSvolta >
-Studente "1" <-- "n" StudentiInterrogati : posizioneStudente >
+Materia "1" <-- "n" Argomento : idMateria >
+Argomento "1" <-- "n" Quesito : idArgomento >
+Quesito "1" <-- "n" Riferimento : idQuesito >
+MaterialeDidattico "1" <-- "n" Riferimento : idMateriale >
+InterrogazioneProgrammata "1" <-- "n" IntProgArgomento : idInterrogazione >
+Argomento "1" <-- "n" IntProgArgomento : idArgomento >
+InterrogazioneProgrammata "1" <-- "n" AssegnazioneStudenti : idInterrogazione >
+Studente "1" <-- "n" AssegnazioneStudenti : idStudente >
+InterrogazioneProgrammata "1" <-- "0..n" InterrogazioneSvolta : idInterrogazione >
+InterrogazioneSvolta "1" <-- "n" IntSvoltaArgomento : idInterrSvolta >
+Argomento "1" <-- "n" IntSvoltaArgomento : idArgomento >
+InterrogazioneSvolta "1" <-- "n" StudentiInterrogati : idInterrSvolta >
+Studente "1" <-- "n" StudentiInterrogati : idStudente >
 @enduml
 ....
 
@@ -1103,59 +1136,54 @@ Studente "1" <-- "n" StudentiInterrogati : posizioneStudente >
 [cols="2,2,1,3", options="header"]
 |===
 | Campo | Tipo | Chiave | Note
-| `id`                 | Number | PK (auto) | Generata da AppLab
-| `posizioneStudente`  | Number | AK        | Numero di lista in classe
-| `cognome`            | String |           |
-| `nome`               | String |           |
+| `id`      | Number | PK (auto) | Generata da AppLab
+| `cognome` | String |           |
+| `nome`    | String |           |
 |===
 
 .Tabella `Materia`
 [cols="2,2,1,3", options="header"]
 |===
 | Campo | Tipo | Chiave | Note
-| `id`             | Number | PK (auto) |
-| `codiceMateria`  | String | AK        | Es. `MAT`, `ITA`, `STO`
-| `materia`        | String |           | Nome per esteso
+| `id`      | Number | PK (auto) |
+| `materia` | String |           | Nome per esteso
 |===
 
 .Tabella `Argomento`
 [cols="2,2,1,3", options="header"]
 |===
 | Campo | Tipo | Chiave | Note
-| `id`               | Number | PK (auto) |
-| `codiceArgomento`  | String | AK        |
-| `codiceMateria`    | String | FK        | → `Materia.codiceMateria`
-| `argomento`        | String |           |
+| `id`        | Number | PK (auto) |
+| `idMateria` | Number | FK        | → `Materia.id`
+| `argomento` | String |           |
 |===
 
 .Tabella `Quesito`
 [cols="2,2,1,3", options="header"]
 |===
 | Campo | Tipo | Chiave | Note
-| `id`               | Number | PK (auto) |
-| `codiceQuesito`    | String | AK        |
-| `codiceArgomento`  | String | FK        | → `Argomento.codiceArgomento`
-| `quesito`          | String |           | Testo del quesito di studio
+| `id`          | Number | PK (auto) |
+| `idArgomento` | Number | FK        | → `Argomento.id`
+| `quesito`     | String |           | Testo del quesito di studio
 |===
 
 .Tabella `InterrogazioneProgrammata`
 [cols="2,2,1,3", options="header"]
 |===
 | Campo | Tipo | Chiave | Note
-| `id`                   | Number | PK (auto) |
-| `codiceInterrogazione` | String | AK        | Generato automaticamente
-| `numeroInterrogati`    | Number |           | N. massimo posti disponibili
-| `data`                 | String |           | Formato `gg/mm/aaaa`
-| `ora`                  | String |           | Formato `hh:mm`
+| `id`                | Number | PK (auto) |
+| `numeroInterrogati` | Number |           | N. massimo posti disponibili
+| `data`              | String |           | Formato `gg/mm/aaaa`
+| `ora`               | String |           | Formato `hh:mm`
 |===
 
 .Tabella `IntProgArgomento`
 [cols="2,2,1,3", options="header"]
 |===
 | Campo | Tipo | Chiave | Note
-| `id`                   | Number | PK (auto)  |
-| `codiceInterrogazione` | String | FK + PK(c) | → `InterrogazioneProgrammata.codiceInterrogazione`
-| `codiceArgomento`      | String | FK + PK(c) | → `Argomento.codiceArgomento`
+| `id`               | Number | PK (auto) |
+| `idInterrogazione` | Number | FK        | → `InterrogazioneProgrammata.id`
+| `idArgomento`      | Number | FK        | → `Argomento.id`
 |===
 
 NOTE: Tutti gli argomenti di una stessa interrogazione devono appartenere alla stessa materia. Vincolo da applicare in JavaScript prima dell'inserimento.
@@ -1164,64 +1192,61 @@ NOTE: Tutti gli argomenti di una stessa interrogazione devono appartenere alla s
 [cols="2,2,1,3", options="header"]
 |===
 | Campo | Tipo | Chiave | Note
-| `id`                   | Number | PK (auto)  |
-| `codiceInterrogazione` | String | FK + PK(c) | → `InterrogazioneProgrammata.codiceInterrogazione`
-| `posizioneStudente`    | Number | FK + PK(c) | → `Studente.posizioneStudente`
+| `id`               | Number | PK (auto) |
+| `idInterrogazione` | Number | FK        | → `InterrogazioneProgrammata.id`
+| `idStudente`       | Number | FK        | → `Studente.id`
 |===
 
 .Tabella `MaterialeDidattico`
 [cols="2,2,1,3", options="header"]
 |===
 | Campo | Tipo | Chiave | Note
-| `id`               | Number | PK (auto) |
-| `codiceMateriale`  | String | AK        |
-| `tipo`             | String |           | libro, sito, articolo, rivista, video, podcast
-| `titolo`           | String |           |
-| `autore`           | String |           | Facoltativo
-| `url`              | String |           | Facoltativo
+| `id`     | Number | PK (auto) |
+| `tipo`   | String |           | libro, sito, articolo, rivista, video, podcast
+| `titolo` | String |           |
+| `autore` | String |           | Facoltativo
+| `url`    | String |           | Facoltativo
 |===
 
 .Tabella `Riferimento`
 [cols="2,2,1,3", options="header"]
 |===
 | Campo | Tipo | Chiave | Note
-| `id`                 | Number | PK (auto) |
-| `codiceRiferimento`  | String | AK        |
-| `codiceQuesito`      | String | FK        | → `Quesito.codiceQuesito`
-| `codiceMateriale`    | String | FK        | → `MaterialeDidattico.codiceMateriale`
-| `dettaglio`          | String |           | Es. "pp. 42–56", "cap. 3", "min 12:30–25:00"
+| `id`          | Number | PK (auto) |
+| `idQuesito`   | Number | FK        | → `Quesito.id`
+| `idMateriale` | Number | FK        | → `MaterialeDidattico.id`
+| `dettaglio`   | String |           | Es. "pp. 42–56", "cap. 3", "min 12:30–25:00"
 |===
 
 .Tabella `InterrogazioneSvolta`
 [cols="2,2,1,3", options="header"]
 |===
 | Campo | Tipo | Chiave | Note
-| `id`                   | Number | PK (auto) |
-| `codiceInterrSvolta`   | String | AK        | Generato automaticamente
-| `codiceInterrogazione` | String | FK        | → `InterrogazioneProgrammata` — facoltativo (può essere `""`)
-| `data`                 | String |           | Formato `gg/mm/aaaa`
-| `ora`                  | String |           | Formato `hh:mm`
+| `id`               | Number | PK (auto) |
+| `idInterrogazione` | Number | FK        | → `InterrogazioneProgrammata.id` — facoltativo (`null` se non pianificata)
+| `data`             | String |           | Formato `gg/mm/aaaa`
+| `ora`              | String |           | Formato `hh:mm`
 |===
 
 .Tabella `IntSvoltaArgomento`
 [cols="2,2,1,3", options="header"]
 |===
 | Campo | Tipo | Chiave | Note
-| `id`                 | Number | PK (auto)  |
-| `codiceInterrSvolta` | String | FK + PK(c) | → `InterrogazioneSvolta.codiceInterrSvolta`
-| `codiceArgomento`    | String | FK + PK(c) | → `Argomento.codiceArgomento`
+| `id`             | Number | PK (auto) |
+| `idInterrSvolta` | Number | FK        | → `InterrogazioneSvolta.id`
+| `idArgomento`    | Number | FK        | → `Argomento.id`
 |===
 
 .Tabella `StudentiInterrogati`
 [cols="2,2,1,3", options="header"]
 |===
 | Campo | Tipo | Chiave | Note
-| `id`                 | Number | PK (auto)  |
-| `codiceInterrSvolta` | String | FK + PK(c) | → `InterrogazioneSvolta.codiceInterrSvolta`
-| `posizioneStudente`  | Number | FK + PK(c) | → `Studente.posizioneStudente`
+| `id`             | Number | PK (auto) |
+| `idInterrSvolta` | Number | FK        | → `InterrogazioneSvolta.id`
+| `idStudente`     | Number | FK        | → `Studente.id`
 |===
 
-NOTE: `PK(c)` = chiave primaria composta. L'unicità delle combinazioni con questo vincolo deve essere garantita in JavaScript prima di ogni `createRecord`.
+NOTE: Nelle tabelle di relazione (`IntProgArgomento`, `AssegnazioneStudenti`, `IntSvoltaArgomento`, `StudentiInterrogati`) l'unicità delle coppie di chiavi esterne deve essere garantita in JavaScript prima di ogni `createRecord`.
 
 <<<
 
