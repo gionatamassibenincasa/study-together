@@ -648,7 +648,9 @@ S -> UI : sceglie argomento + data/ora/posti
 UI -> UI : valida data (>= oggi)\nvalida posti (> 0)
 
 alt dati validi
-  UI -> DB : createRecord("InterrogazioneProgrammata",\n  {numeroInterrogati, data, ora})
+  UI -> DB : createRecord("Interrogazione",\n  {data, ora})
+  DB --> UI : record creato con idInterrogazioneBase
+  UI -> DB : createRecord("InterrogazioneProgrammata",\n  {idInterrogazione: idInterrogazioneBase,\n   numeroInterrogati})
   DB --> UI : record creato con idInterrogazione
   loop per ogni argomento selezionato
     UI -> DB : createRecord("IntProgArgomento",\n  {idInterrogazione,\n   idArgomento})
@@ -801,7 +803,9 @@ S -> UI : sceglie (opt) interrogazione programmata,\nargomenti, studenti interro
 UI -> UI : valida: almeno un argomento,\nalmeno uno studente, data non futura
 
 alt dati validi
-  UI -> DB : createRecord("InterrogazioneSvolta",\n  {idInterrogazione?,\n   data, ora})
+  UI -> DB : createRecord("Interrogazione",\n  {data, ora})
+  DB --> UI : record creato con idInterrogazioneBase
+  UI -> DB : createRecord("InterrogazioneSvolta",\n  {idInterrogazione: idInterrogazioneBase,\n   idInterrogazioneProgrammata?})
   DB --> UI : record creato con idInterrSvolta
   loop per ogni argomento selezionato
     UI -> DB : createRecord("IntSvoltaArgomento",\n  {idInterrSvolta,\n   idArgomento})
@@ -825,202 +829,264 @@ end
 I wireframe illustrano la struttura e il layout delle schermate principali di StudyTogether.
 Il design segue i principi dell'usabilità mobile: navigazione bottom-tab, form semplici, feedback visivo immediato.
 
+Tutti i componenti sono elementi AppLab. *Legenda notazione*:
+`[ Testo ]` = pulsante (button) •
+`[ Valore  ▼ ]` = menu a tendina (dropdown) •
+`[________]` = inserimento di testo (text input) •
+`(●)` / `(○)` = pulsante radio (radio button) •
+`[x]` / `[ ]` = casella di controllo (checkbox) •
+testo semplice = etichetta (label) •
+`[chart: ...]` = grafico (chart).
+
+La barra di navigazione inferiore è composta da *5 pulsanti*.
+
 === W01 — Home / Dashboard
 
 [listing]
 ----
   ┌─────────────────────────┐
-  │  ☰  StudyTogether    🔔 │
+  │  StudyTogether          │
   ├─────────────────────────┤
   │                         │
-  │   Ciao, Classe! 👋      │
-  │   Comunità di Pratica   │
+  │  Prossima interrogaz.:  │
+  │  Matematica             │
+  │  Funzioni — 3 posti     │
+  │  15/04  ore 10:00       │
+  │  [ CANDIDATI →        ] │
   │                         │
-  │  ┌───────────────────┐  │
-  │  │ 📅 Prossima interr.│  │
-  │  │ Matematica         │  │
-  │  │ Funzioni — 3 posti │  │
-  │  │ 15/04  ore 10:00   │  │
-  │  │  [ Candidati →  ]  │  │
-  │  └───────────────────┘  │
-  │                         │
-  │  ┌───────────────────┐  │
-  │  │ 📊 Questa settimana│  │
-  │  │ 3 interrogazioni   │  │
-  │  │ 12 candidature tot │  │
-  │  └───────────────────┘  │
+  │  Settimana corrente:    │
+  │  [chart: interr./gg   ] │
+  │  3 interrogazioni       │
+  │  12 candidature totali  │
   │                         │
   ├─────────────────────────┤
-  │ 🏠  📅  📚  👥  ➕     │
-  │Home Cal  Mat Stud Nuovo │
+  │[Home][Cal][Mat][St][ + ]│
   └─────────────────────────┘
 ----
+
+Elementi: etichette, pulsante (candidati), grafico, 5 pulsanti di navigazione.
 
 === W02 — Calendario Interrogazioni
 
 [listing]
 ----
   ┌─────────────────────────┐
-  │  ←  Calendario       🔍 │
+  │  Calendario             │
   ├─────────────────────────┤
-  │ [ Tutte ][ Aperte ][ Mie]│
+  │ (●) Tutte  (○) Aperte   │
+  │ (○) Mie                 │
   ├─────────────────────────┤
-  │  ┌───────────────────┐  │
-  │  │ 📘 Italiano        │  │
-  │  │ Promessi Sposi     │  │
-  │  │ 12/04 — 09:00      │  │
-  │  │ ●●●○○  3/5 posti   │  │
-  │  └───────────────────┘  │
-  │  ┌───────────────────┐  │
-  │  │ 📗 Matematica      │  │
-  │  │ Funzioni reali     │  │
-  │  │ 15/04 — 10:00      │  │
-  │  │ ●●○○○  2/5 posti   │  │
-  │  │  ✅ Sei candidato  │  │
-  │  └───────────────────┘  │
-  │  ┌───────────────────┐  │
-  │  │ 📕 Storia          │  │
-  │  │ Prima guerra mond. │  │
-  │  │ 18/04 — 11:00      │  │
-  │  │ ○○○○  0/4 posti   │  │
-  │  └───────────────────┘  │
+  │  Italiano               │
+  │  Promessi Sposi         │
+  │  12/04 — 09:00          │
+  │  ●●●○○  3/5 posti       │
+  │  ─────────────────────  │
+  │  Matematica             │
+  │  Funzioni reali         │
+  │  15/04 — 10:00          │
+  │  ●●○○○  2/5 posti       │
+  │  [x] Sei candidato      │
+  │  ─────────────────────  │
+  │  Storia                 │
+  │  Prima guerra mondiale  │
+  │  18/04 — 11:00          │
+  │  ○○○○   0/4 posti       │
   ├─────────────────────────┤
-  │ 🏠  📅  📚  👥  ➕     │
+  │[Home][Cal][Mat][St][ + ]│
   └─────────────────────────┘
 ----
 
-=== W03 — Dettaglio Interrogazione
+Elementi: etichette, 3 pulsanti radio (filtro Tutte/Aperte/Mie),
+casella di controllo (sola lettura — candidatura attiva).
+
+=== W03 — Dettaglio Interrogazione Programmata
 
 [listing]
 ----
   ┌─────────────────────────┐
-  │  ←  Interrogazione      │
+  │  Interrogazione         │
   ├─────────────────────────┤
-  │  📗 MATEMATICA          │
+  │  MATEMATICA             │
+  │  Funzioni reali         │
+  │  15 Aprile — ore 10:00  │
+  │  Posti disponibili: 3/5 │
   │  ─────────────────────  │
-  │  Argomento:             │
-  │  Funzioni reali di var. │
-  │  reale                  │
+  │  Quesiti di studio:     │
+  │  Def. dominio funzione  │
+  │  Calcola f(x)=x²+2x     │
+  │  Funzione pari/dispari  │
+  │  ─────────────────────  │
+  │  Candidati (2):         │
+  │  [x] Rossi Mario        │
+  │  [x] Bianchi Anna       │
   │                         │
-  │  📅 15 Aprile — 10:00   │
-  │  👥 Posti: 2 / 5        │
-  │                         │
-  │  ─── Quesiti di studio ─│
-  │  • Def. dominio funzione│
-  │  • Calcola f(x)=x²+2x   │
-  │  • Funzione pari/dispari │
-  │                         │
-  │  ─── Candidati (2) ─────│
-  │  ✓ Rossi Mario          │
-  │  ✓ Bianchi Anna         │
-  │                         │
-  │  ┌─────────────────────┐│
-  │  │   🙋 CANDIDATI!     ││
-  │  └─────────────────────┘│
+  │  [     CANDIDATI!     ] │
   ├─────────────────────────┤
-  │ 🏠  📅  📚  👥  ➕     │
+  │[Home][Cal][Mat][St][ + ]│
   └─────────────────────────┘
 ----
+
+Elementi: etichette, caselle di controllo (sola lettura — candidati iscritti),
+pulsante (candidatura).
 
 === W04 — Nuova Interrogazione (Form)
 
 [listing]
 ----
   ┌─────────────────────────┐
-  │  ←  Nuova Interrogaz.   │
+  │  Nuova Interrogazione   │
   ├─────────────────────────┤
-  │                         │
   │  Materia                │
-  │  ┌─────────────────────┐│
-  │  │ Matematica        ▼ ││
-  │  └─────────────────────┘│
+  │  [ Matematica       ▼ ] │
   │                         │
-  │  Argomento              │
-  │  ┌─────────────────────┐│
-  │  │ Funzioni reali... ▼ ││
-  │  └─────────────────────┘│
-  │  [ + Aggiungi argomento]│
+  │  Argomenti              │
+  │  [x] Funzioni reali     │
+  │  [ ] Derivate           │
+  │  [ ] Integrali          │
   │                         │
-  │  Data                   │
-  │  ┌─────────────────────┐│
-  │  │  📅  gg / mm / aaaa ││
-  │  └─────────────────────┘│
+  │  Data  (gg/mm/aaaa)     │
+  │  [_____________________]│
   │                         │
-  │  Ora                    │
-  │  ┌─────────────────────┐│
-  │  │  🕐  hh : mm        ││
-  │  └─────────────────────┘│
+  │  Ora   (hh:mm)          │
+  │  [_____________________]│
   │                         │
-  │  N° massimo interrogati │
-  │  ┌────────┐             │
-  │  │   5    │             │
-  │  └────────┘             │
+  │  N° max interrogati     │
+  │  [_____________________]│
   │                         │
-  │  ┌─────────────────────┐│
-  │  │    💾  SALVA        ││
-  │  └─────────────────────┘│
+  │  [       SALVA        ] │
   ├─────────────────────────┤
-  │ 🏠  📅  📚  👥  ➕     │
+  │[Home][Cal][Mat][St][ + ]│
   └─────────────────────────┘
 ----
 
-NOTE: La selezione degli argomenti supporta scelte multiple, purché tutti appartengano alla stessa materia (vincolo UC5 3b). Il prototipo mostra la selezione base; l'implementazione usa una lista con caselle di selezione filtrata per materia.
+NOTE: Le caselle di controllo degli argomenti sono filtrate dinamicamente in base alla materia selezionata. Tutti gli argomenti devono appartenere alla stessa materia (vincolo UC5 3b).
+
+Elementi: etichette, menu a tendina (materia), caselle di controllo (argomenti),
+3 inserimenti di testo (data, ora, n° max), pulsante.
 
 === W05 — Gestione Studenti
 
-[listing]
-----
-  ┌─────────────────────────┐
-  │  ←  Studenti       [ + ]│
-  ├─────────────────────────┤
-  │  🔍  Cerca...           │
-  ├─────────────────────────┤
-  │  1.  Bianchi Anna       │
-  │      ─────────────────  │
-  │  2.  Esposito Luca      │
-  │      ─────────────────  │
-  │  3.  Ferrari Giulia     │
-  │      ─────────────────  │
-  │  4.  Greco Marco        │
-  │      ─────────────────  │
-  │  5.  Marino Sofia       │
-  │      ─────────────────  │
-  │  6.  Ricci Paolo        │
-  │      ─────────────────  │
-  │  7.  Rossi Mario        │
-  │                         │
-  │  [ Aggiungi Studente + ]│
-  ├─────────────────────────┤
-  │ 🏠  📅  📚  👥  ➕     │
-  └─────────────────────────┘
-----
-
-=== W06 — Materie e Argomenti
+Tabella indipendente — nessuna chiave esterna.
 
 [listing]
 ----
   ┌─────────────────────────┐
-  │  ←  Materie        [ + ]│
+  │  Studenti               │
   ├─────────────────────────┤
-  │                         │
-  │  ▼ 📘 Italiano          │
-  │    • I Promessi Sposi   │
-  │      [+ Quesiti: 3]     │
-  │    • Il Barocco         │
-  │      [+ Quesiti: 1]     │
-  │    [ + Argomento ]      │
-  │                         │
-  │  ▶ 📗 Matematica        │
-  │  ▶ 📕 Storia            │
-  │  ▶ 📙 Fisica            │
-  │  ▶ 📓 Inglese           │
-  │                         │
-  │  [ + Nuova Materia ]    │
-  │                         │
+  │  Cerca                  │
+  │  [_____________________]│
   ├─────────────────────────┤
-  │ 🏠  📅  📚  👥  ➕     │
+  │  Bianchi Luigi          │
+  │  [ Modifica ][Elimina ] │
+  │  Doe John               │
+  │  [ Modifica ][Elimina ] │
+  │  Neri Francesca         │
+  │  [ Modifica ][Elimina ] │
+  │  Rossi Mario            │
+  │  [ Modifica ][Elimina ] │
+  │  Verdi Giulia           │
+  │  [ Modifica ][Elimina ] │
+  │                         │
+  │  [ NUOVO STUDENTE     ] │
+  ├─────────────────────────┤
+  │[Home][Cal][Mat][St][ + ]│
   └─────────────────────────┘
 ----
+
+Elementi: etichetta (titolo), inserimento di testo (cerca), etichette (righe elenco),
+pulsanti `Modifica` e `Elimina` per ciascuna riga, pulsante `Nuovo Studente`.
+
+=== W06 — Gestione Materie
+
+Tabella indipendente — nessuna chiave esterna.
+
+[listing]
+----
+  ┌─────────────────────────┐
+  │  Materie                │
+  ├─────────────────────────┤
+  │  Italiano               │
+  │  [ Modifica ][Elimina ] │
+  │  Matematica             │
+  │  [ Modifica ][Elimina ] │
+  │  Storia                 │
+  │  [ Modifica ][Elimina ] │
+  │  Informatica            │
+  │  [ Modifica ][Elimina ] │
+  │  Diritto                │
+  │  [ Modifica ][Elimina ] │
+  │  Economia politica      │
+  │  [ Modifica ][Elimina ] │
+  │                         │
+  │  [ NUOVA MATERIA      ] │
+  ├─────────────────────────┤
+  │[Home][Cal][Mat][St][ + ]│
+  └─────────────────────────┘
+----
+
+Elementi: etichette (righe elenco), pulsanti `Modifica` e `Elimina` per ciascuna riga,
+pulsante `Nuova Materia`.
+
+=== W07 — Gestione Materiali Didattici
+
+Tabella indipendente — nessuna chiave esterna.
+
+[listing]
+----
+  ┌─────────────────────────┐
+  │  Materiali Didattici    │
+  ├─────────────────────────┤
+  │  Filtra per tipo        │
+  │  [ Tutti i tipi     ▼ ] │
+  ├─────────────────────────┤
+  │  Analisi Matematica     │
+  │  libro                  │
+  │  [ Modifica ][Elimina ] │
+  │  Khan Academy           │
+  │  sito                   │
+  │  [ Modifica ][Elimina ] │
+  │  Storia moderna (art.)  │
+  │  articolo               │
+  │  [ Modifica ][Elimina ] │
+  │                         │
+  │  [ NUOVO MATERIALE    ] │
+  ├─────────────────────────┤
+  │[Home][Cal][Mat][St][ + ]│
+  └─────────────────────────┘
+----
+
+Elementi: etichetta (titolo), menu a tendina (filtro per tipo), etichette (titolo e tipo
+per ciascuna riga), pulsanti `Modifica` e `Elimina` per ciascuna riga,
+pulsante `Nuovo Materiale`.
+
+=== W08 — Form Materiale Didattico (Inserimento / Modifica)
+
+[listing]
+----
+  ┌─────────────────────────┐
+  │  Materiale Didattico    │
+  ├─────────────────────────┤
+  │  Tipo                   │
+  │  [ libro            ▼ ] │
+  │                         │
+  │  Titolo                 │
+  │  [_____________________]│
+  │                         │
+  │  Autore  (opzionale)    │
+  │  [_____________________]│
+  │                         │
+  │  URL  (opzionale)       │
+  │  [_____________________]│
+  │                         │
+  │  [       SALVA        ] │
+  │  [      ANNULLA       ] │
+  ├─────────────────────────┤
+  │[Home][Cal][Mat][St][ + ]│
+  └─────────────────────────┘
+----
+
+Elementi: etichette, menu a tendina (tipo: libro/sito/articolo/rivista/video/podcast),
+3 inserimenti di testo (titolo, autore opz., URL opz.), 2 pulsanti (Salva, Annulla).
 
 <<<
 
@@ -1076,11 +1142,16 @@ class Riferimento {
   dettaglio : String
 }
 
-class InterrogazioneProgrammata {
+class Interrogazione {
   **id** : Number
-  numeroInterrogati : Number
   data : String
   ora : String
+}
+
+class InterrogazioneProgrammata {
+  **id** : Number
+  //idInterrogazione// : Number
+  numeroInterrogati : Number
 }
 
 class IntProgArgomento {
@@ -1098,8 +1169,7 @@ class AssegnazioneStudenti {
 class InterrogazioneSvolta {
   **id** : Number
   //idInterrogazione// : Number
-  data : String
-  ora : String
+  //idInterrogazioneProgrammata// : Number
 }
 
 class IntSvoltaArgomento {
@@ -1118,11 +1188,13 @@ Materia "1" <-- "n" Argomento : idMateria >
 Argomento "1" <-- "n" Quesito : idArgomento >
 Quesito "1" <-- "n" Riferimento : idQuesito >
 MaterialeDidattico "1" <-- "n" Riferimento : idMateriale >
+Interrogazione "1" <-- "0..1" InterrogazioneProgrammata : idInterrogazione >
 InterrogazioneProgrammata "1" <-- "n" IntProgArgomento : idInterrogazione >
 Argomento "1" <-- "n" IntProgArgomento : idArgomento >
 InterrogazioneProgrammata "1" <-- "n" AssegnazioneStudenti : idInterrogazione >
 Studente "1" <-- "n" AssegnazioneStudenti : idStudente >
-InterrogazioneProgrammata "1" <-- "0..n" InterrogazioneSvolta : idInterrogazione >
+Interrogazione "1" <-- "0..1" InterrogazioneSvolta : idInterrogazione >
+InterrogazioneProgrammata "1" <-- "0..1" InterrogazioneSvolta : idInterrogazioneProgrammata >
 InterrogazioneSvolta "1" <-- "n" IntSvoltaArgomento : idInterrSvolta >
 Argomento "1" <-- "n" IntSvoltaArgomento : idArgomento >
 InterrogazioneSvolta "1" <-- "n" StudentiInterrogati : idInterrSvolta >
@@ -1167,14 +1239,22 @@ Studente "1" <-- "n" StudentiInterrogati : idStudente >
 | `quesito`     | String |           | Testo del quesito di studio
 |===
 
+.Tabella `Interrogazione`
+[cols="2,2,1,3", options="header"]
+|===
+| Campo | Tipo | Chiave | Note
+| `id`   | Number | PK (auto) |
+| `data` | String |           | Formato `gg/mm/aaaa`
+| `ora`  | String |           | Formato `hh:mm`
+|===
+
 .Tabella `InterrogazioneProgrammata`
 [cols="2,2,1,3", options="header"]
 |===
 | Campo | Tipo | Chiave | Note
 | `id`                | Number | PK (auto) |
+| `idInterrogazione`  | Number | FK        | → `Interrogazione.id`
 | `numeroInterrogati` | Number |           | N. massimo posti disponibili
-| `data`              | String |           | Formato `gg/mm/aaaa`
-| `ora`               | String |           | Formato `hh:mm`
 |===
 
 .Tabella `IntProgArgomento`
@@ -1223,9 +1303,8 @@ NOTE: Tutti gli argomenti di una stessa interrogazione devono appartenere alla s
 |===
 | Campo | Tipo | Chiave | Note
 | `id`               | Number | PK (auto) |
-| `idInterrogazione` | Number | FK        | → `InterrogazioneProgrammata.id` — facoltativo (`null` se non pianificata)
-| `data`             | String |           | Formato `gg/mm/aaaa`
-| `ora`              | String |           | Formato `hh:mm`
+| `idInterrogazione` | Number | FK        | → `Interrogazione.id`
+| `idInterrogazioneProgrammata` | Number | FK | → `InterrogazioneProgrammata.id` — facoltativo (`null` se non pianificata)
 |===
 
 .Tabella `IntSvoltaArgomento`
@@ -1357,7 +1436,7 @@ Il modello si ispira al *cooperative learning* (Johnson & Johnson, 1989): interd
 | UC7  | RF-07  | La candidatura deve essere bloccata se i posti sono esauriti, lo studente è già candidato per la stessa interrogazione, o ha una candidatura nella stessa data.
 | UC8  | RF-08  | I materiali didattici devono avere tipo (libro, sito, articolo, rivista, video, podcast), titolo, e facoltativamente autore e URL.
 | UC9  | RF-09  | Un riferimento deve collegare un quesito a una specifica porzione di materiale didattico con dettaglio testuale obbligatorio.
-| UC10 | RF-10  | L'interrogazione svolta deve registrare data, ora, almeno un argomento, almeno uno studente interrogato, e opzionalmente il collegamento a un'interrogazione programmata.
+| UC10 | RF-10  | L'interrogazione svolta deve registrare data e ora nell'entità `Interrogazione`, almeno un argomento, almeno uno studente interrogato, e opzionalmente il collegamento a un'interrogazione programmata.
 | UC11 | RF-11  | Il sistema deve mostrare, per un argomento, gli studenti candidati a un'interrogazione programmata futura ma non ancora risultanti in una svolta per lo stesso argomento.
 |===
 

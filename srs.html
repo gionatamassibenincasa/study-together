@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.25">
+<meta name="generator" content="Asciidoctor 2.0.23">
 <meta name="author" content="3B AFM">
 <title>StudyTogether&#8201;&#8212;&#8201;Specifica dei Requisiti del Software</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
@@ -117,6 +117,7 @@ h1 strong,h2 strong,h3 strong,#toctitle strong,.sidebarblock>.content>.title str
 :not(pre):not([class^=L])>code{font-size:.9375em;font-style:normal!important;letter-spacing:0;padding:.1em .5ex;word-spacing:-.15em;background:#f7f7f8;border-radius:4px;line-height:1.45;text-rendering:optimizeSpeed}
 pre{color:rgba(0,0,0,.9);font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;line-height:1.45;text-rendering:optimizeSpeed}
 pre code,pre pre{color:inherit;font-size:inherit;line-height:inherit}
+pre>code{display:block}
 pre.nowrap,pre.nowrap pre{white-space:pre;word-wrap:normal}
 em em{font-style:normal}
 strong strong{font-weight:400}
@@ -219,7 +220,6 @@ table.tableblock.fit-content>caption.title{white-space:nowrap;width:0}
 .literalblock pre,.listingblock>.content>pre:not(.highlight),.listingblock>.content>pre[class=highlight],.listingblock>.content>pre[class^="highlight "]{background:#f7f7f8}
 .literalblock.output pre{color:#f7f7f8;background:rgba(0,0,0,.9)}
 .listingblock>.content{position:relative}
-.listingblock pre>code{display:block}
 .listingblock code[data-lang]::before{display:none;content:attr(data-lang);position:absolute;font-size:.75em;top:.425rem;right:.5rem;line-height:1;text-transform:uppercase;color:inherit;opacity:.5}
 .listingblock:hover code[data-lang]::before{display:block}
 .listingblock.terminal pre .command::before{content:attr(data-prompt);padding-right:.5em;color:inherit;opacity:.5}
@@ -501,10 +501,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel2">
 <li><a href="#_w01_home_dashboard">5.1. W01 — Home / Dashboard</a></li>
 <li><a href="#_w02_calendario_interrogazioni">5.2. W02 — Calendario Interrogazioni</a></li>
-<li><a href="#_w03_dettaglio_interrogazione">5.3. W03 — Dettaglio Interrogazione</a></li>
+<li><a href="#_w03_dettaglio_interrogazione_programmata">5.3. W03 — Dettaglio Interrogazione Programmata</a></li>
 <li><a href="#_w04_nuova_interrogazione_form">5.4. W04 — Nuova Interrogazione (Form)</a></li>
 <li><a href="#_w05_gestione_studenti">5.5. W05 — Gestione Studenti</a></li>
-<li><a href="#_w06_materie_e_argomenti">5.6. W06 — Materie e Argomenti</a></li>
+<li><a href="#_w06_gestione_materie">5.6. W06 — Gestione Materie</a></li>
+<li><a href="#_w07_gestione_materiali_didattici">5.7. W07 — Gestione Materiali Didattici</a></li>
+<li><a href="#_w08_form_materiale_didattico_inserimento_modifica">5.8. W08 — Form Materiale Didattico (Inserimento / Modifica)</a></li>
 </ul>
 </li>
 <li><a href="#_modello_dei_dati">Capitolo 6. Modello dei Dati</a>
@@ -808,7 +810,7 @@ L&#8217;unico attore è lo <strong>Studente</strong>, che interagisce con tutti 
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/usecase-diagram.svg" alt="usecase diagram" width="339" height="1180">
+<img src="images/usecase-diagram.svg" alt="usecase diagram" width="339" height="1181">
 </div>
 </div>
 </div>
@@ -1668,7 +1670,7 @@ onEvent("btnSalvaStudente", "click", function( ) {
 <h3 id="_sd_02_inserimento_interrogazione_programmata">4.2. SD-02 — Inserimento Interrogazione Programmata</h3>
 <div class="imageblock">
 <div class="content">
-<img src="images/sd-inserimento-interrogazione.svg" alt="sd inserimento interrogazione" width="654" height="884">
+<img src="images/sd-inserimento-interrogazione.svg" alt="sd inserimento interrogazione" width="654" height="983">
 </div>
 </div>
 </div>
@@ -1700,7 +1702,7 @@ onEvent("btnSalvaStudente", "click", function( ) {
 <h3 id="_sd_06_registrazione_interrogazione_svolta">4.6. SD-06 — Registrazione Interrogazione Svolta</h3>
 <div class="imageblock">
 <div class="content">
-<img src="images/sd-registra-svolta.svg" alt="sd registra svolta" width="694" height="1052">
+<img src="images/sd-registra-svolta.svg" alt="sd registra svolta" width="694" height="1133">
 </div>
 </div>
 <div style="page-break-after: always;"></div>
@@ -1714,36 +1716,45 @@ onEvent("btnSalvaStudente", "click", function( ) {
 <p>I wireframe illustrano la struttura e il layout delle schermate principali di StudyTogether.
 Il design segue i principi dell&#8217;usabilità mobile: navigazione bottom-tab, form semplici, feedback visivo immediato.</p>
 </div>
+<div class="paragraph">
+<p>Tutti i componenti sono elementi AppLab. <strong>Legenda notazione</strong>:
+<code>[ Testo ]</code> = pulsante (button) •
+<code>[ Valore  ▼ ]</code> = menu a tendina (dropdown) •
+<code>[<em><em></em>__</em>]</code> = inserimento di testo (text input) •
+<code>(●)</code> / <code>(○)</code> = pulsante radio (radio button) •
+<code>[x]</code> / <code>[ ]</code> = casella di controllo (checkbox) •
+testo semplice = etichetta (label) •
+<code>[chart: &#8230;&#8203;]</code> = grafico (chart).</p>
+</div>
+<div class="paragraph">
+<p>La barra di navigazione inferiore è composta da <strong>5 pulsanti</strong>.</p>
+</div>
 <div class="sect2">
 <h3 id="_w01_home_dashboard">5.1. W01 — Home / Dashboard</h3>
 <div class="listingblock">
 <div class="content">
 <pre>  ┌─────────────────────────┐
-  │  ☰  StudyTogether    🔔 │
+  │  StudyTogether          │
   ├─────────────────────────┤
   │                         │
-  │   Ciao, Classe! 👋      │
-  │   Comunità di Pratica   │
+  │  Prossima interrogaz.:  │
+  │  Matematica             │
+  │  Funzioni — 3 posti     │
+  │  15/04  ore 10:00       │
+  │  [ CANDIDATI →        ] │
   │                         │
-  │  ┌───────────────────┐  │
-  │  │ 📅 Prossima interr.│  │
-  │  │ Matematica         │  │
-  │  │ Funzioni — 3 posti │  │
-  │  │ 15/04  ore 10:00   │  │
-  │  │  [ Candidati →  ]  │  │
-  │  └───────────────────┘  │
-  │                         │
-  │  ┌───────────────────┐  │
-  │  │ 📊 Questa settimana│  │
-  │  │ 3 interrogazioni   │  │
-  │  │ 12 candidature tot │  │
-  │  └───────────────────┘  │
+  │  Settimana corrente:    │
+  │  [chart: interr./gg   ] │
+  │  3 interrogazioni       │
+  │  12 candidature totali  │
   │                         │
   ├─────────────────────────┤
-  │ 🏠  📅  📚  👥  ➕     │
-  │Home Cal  Mat Stud Nuovo │
+  │[Home][Cal][Mat][St][ + ]│
   └─────────────────────────┘</pre>
 </div>
+</div>
+<div class="paragraph">
+<p>Elementi: etichette, pulsante (candidati), grafico, 5 pulsanti di navigazione.</p>
 </div>
 </div>
 <div class="sect2">
@@ -1751,67 +1762,66 @@ Il design segue i principi dell&#8217;usabilità mobile: navigazione bottom-tab,
 <div class="listingblock">
 <div class="content">
 <pre>  ┌─────────────────────────┐
-  │  ←  Calendario       🔍 │
+  │  Calendario             │
   ├─────────────────────────┤
-  │ [ Tutte ][ Aperte ][ Mie]│
+  │ (●) Tutte  (○) Aperte   │
+  │ (○) Mie                 │
   ├─────────────────────────┤
-  │  ┌───────────────────┐  │
-  │  │ 📘 Italiano        │  │
-  │  │ Promessi Sposi     │  │
-  │  │ 12/04 — 09:00      │  │
-  │  │ ●●●○○  3/5 posti   │  │
-  │  └───────────────────┘  │
-  │  ┌───────────────────┐  │
-  │  │ 📗 Matematica      │  │
-  │  │ Funzioni reali     │  │
-  │  │ 15/04 — 10:00      │  │
-  │  │ ●●○○○  2/5 posti   │  │
-  │  │  ✅ Sei candidato  │  │
-  │  └───────────────────┘  │
-  │  ┌───────────────────┐  │
-  │  │ 📕 Storia          │  │
-  │  │ Prima guerra mond. │  │
-  │  │ 18/04 — 11:00      │  │
-  │  │ ○○○○  0/4 posti   │  │
-  │  └───────────────────┘  │
+  │  Italiano               │
+  │  Promessi Sposi         │
+  │  12/04 — 09:00          │
+  │  ●●●○○  3/5 posti       │
+  │  ─────────────────────  │
+  │  Matematica             │
+  │  Funzioni reali         │
+  │  15/04 — 10:00          │
+  │  ●●○○○  2/5 posti       │
+  │  [x] Sei candidato      │
+  │  ─────────────────────  │
+  │  Storia                 │
+  │  Prima guerra mondiale  │
+  │  18/04 — 11:00          │
+  │  ○○○○   0/4 posti       │
   ├─────────────────────────┤
-  │ 🏠  📅  📚  👥  ➕     │
+  │[Home][Cal][Mat][St][ + ]│
   └─────────────────────────┘</pre>
 </div>
+</div>
+<div class="paragraph">
+<p>Elementi: etichette, 3 pulsanti radio (filtro Tutte/Aperte/Mie),
+casella di controllo (sola lettura — candidatura attiva).</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_w03_dettaglio_interrogazione">5.3. W03 — Dettaglio Interrogazione</h3>
+<h3 id="_w03_dettaglio_interrogazione_programmata">5.3. W03 — Dettaglio Interrogazione Programmata</h3>
 <div class="listingblock">
 <div class="content">
 <pre>  ┌─────────────────────────┐
-  │  ←  Interrogazione      │
+  │  Interrogazione         │
   ├─────────────────────────┤
-  │  📗 MATEMATICA          │
+  │  MATEMATICA             │
+  │  Funzioni reali         │
+  │  15 Aprile — ore 10:00  │
+  │  Posti disponibili: 3/5 │
   │  ─────────────────────  │
-  │  Argomento:             │
-  │  Funzioni reali di var. │
-  │  reale                  │
+  │  Quesiti di studio:     │
+  │  Def. dominio funzione  │
+  │  Calcola f(x)=x²+2x     │
+  │  Funzione pari/dispari  │
+  │  ─────────────────────  │
+  │  Candidati (2):         │
+  │  [x] Rossi Mario        │
+  │  [x] Bianchi Anna       │
   │                         │
-  │  📅 15 Aprile — 10:00   │
-  │  👥 Posti: 2 / 5        │
-  │                         │
-  │  ─── Quesiti di studio ─│
-  │  • Def. dominio funzione│
-  │  • Calcola f(x)=x²+2x   │
-  │  • Funzione pari/dispari │
-  │                         │
-  │  ─── Candidati (2) ─────│
-  │  ✓ Rossi Mario          │
-  │  ✓ Bianchi Anna         │
-  │                         │
-  │  ┌─────────────────────┐│
-  │  │   🙋 CANDIDATI!     ││
-  │  └─────────────────────┘│
+  │  [     CANDIDATI!     ] │
   ├─────────────────────────┤
-  │ 🏠  📅  📚  👥  ➕     │
+  │[Home][Cal][Mat][St][ + ]│
   └─────────────────────────┘</pre>
 </div>
+</div>
+<div class="paragraph">
+<p>Elementi: etichette, caselle di controllo (sola lettura — candidati iscritti),
+pulsante (candidatura).</p>
 </div>
 </div>
 <div class="sect2">
@@ -1819,40 +1829,28 @@ Il design segue i principi dell&#8217;usabilità mobile: navigazione bottom-tab,
 <div class="listingblock">
 <div class="content">
 <pre>  ┌─────────────────────────┐
-  │  ←  Nuova Interrogaz.   │
+  │  Nuova Interrogazione   │
   ├─────────────────────────┤
-  │                         │
   │  Materia                │
-  │  ┌─────────────────────┐│
-  │  │ Matematica        ▼ ││
-  │  └─────────────────────┘│
+  │  [ Matematica       ▼ ] │
   │                         │
-  │  Argomento              │
-  │  ┌─────────────────────┐│
-  │  │ Funzioni reali... ▼ ││
-  │  └─────────────────────┘│
-  │  [ + Aggiungi argomento]│
+  │  Argomenti              │
+  │  [x] Funzioni reali     │
+  │  [ ] Derivate           │
+  │  [ ] Integrali          │
   │                         │
-  │  Data                   │
-  │  ┌─────────────────────┐│
-  │  │  📅  gg / mm / aaaa ││
-  │  └─────────────────────┘│
+  │  Data  (gg/mm/aaaa)     │
+  │  [_____________________]│
   │                         │
-  │  Ora                    │
-  │  ┌─────────────────────┐│
-  │  │  🕐  hh : mm        ││
-  │  └─────────────────────┘│
+  │  Ora   (hh:mm)          │
+  │  [_____________________]│
   │                         │
-  │  N° massimo interrogati │
-  │  ┌────────┐             │
-  │  │   5    │             │
-  │  └────────┘             │
+  │  N° max interrogati     │
+  │  [_____________________]│
   │                         │
-  │  ┌─────────────────────┐│
-  │  │    💾  SALVA        ││
-  │  └─────────────────────┘│
+  │  [       SALVA        ] │
   ├─────────────────────────┤
-  │ 🏠  📅  📚  👥  ➕     │
+  │[Home][Cal][Mat][St][ + ]│
   └─────────────────────────┘</pre>
 </div>
 </div>
@@ -1863,68 +1861,149 @@ Il design segue i principi dell&#8217;usabilità mobile: navigazione bottom-tab,
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-La selezione degli argomenti supporta scelte multiple, purché tutti appartengano alla stessa materia (vincolo UC5 3b). Il prototipo mostra la selezione base; l&#8217;implementazione usa una lista con caselle di selezione filtrata per materia.
+Le caselle di controllo degli argomenti sono filtrate dinamicamente in base alla materia selezionata. Tutti gli argomenti devono appartenere alla stessa materia (vincolo UC5 3b).
 </td>
 </tr>
 </table>
 </div>
+<div class="paragraph">
+<p>Elementi: etichette, menu a tendina (materia), caselle di controllo (argomenti),
+3 inserimenti di testo (data, ora, n° max), pulsante.</p>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_w05_gestione_studenti">5.5. W05 — Gestione Studenti</h3>
+<div class="paragraph">
+<p>Tabella indipendente — nessuna chiave esterna.</p>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre>  ┌─────────────────────────┐
-  │  ←  Studenti       [ + ]│
+  │  Studenti               │
   ├─────────────────────────┤
-  │  🔍  Cerca...           │
+  │  Cerca                  │
+  │  [_____________________]│
   ├─────────────────────────┤
-  │  1.  Bianchi Anna       │
-  │      ─────────────────  │
-  │  2.  Esposito Luca      │
-  │      ─────────────────  │
-  │  3.  Ferrari Giulia     │
-  │      ─────────────────  │
-  │  4.  Greco Marco        │
-  │      ─────────────────  │
-  │  5.  Marino Sofia       │
-  │      ─────────────────  │
-  │  6.  Ricci Paolo        │
-  │      ─────────────────  │
-  │  7.  Rossi Mario        │
+  │  Bianchi Luigi          │
+  │  [ Modifica ][Elimina ] │
+  │  Doe John               │
+  │  [ Modifica ][Elimina ] │
+  │  Neri Francesca         │
+  │  [ Modifica ][Elimina ] │
+  │  Rossi Mario            │
+  │  [ Modifica ][Elimina ] │
+  │  Verdi Giulia           │
+  │  [ Modifica ][Elimina ] │
   │                         │
-  │  [ Aggiungi Studente + ]│
+  │  [ NUOVO STUDENTE     ] │
   ├─────────────────────────┤
-  │ 🏠  📅  📚  👥  ➕     │
+  │[Home][Cal][Mat][St][ + ]│
   └─────────────────────────┘</pre>
 </div>
+</div>
+<div class="paragraph">
+<p>Elementi: etichetta (titolo), inserimento di testo (cerca), etichette (righe elenco),
+pulsanti <code>Modifica</code> e <code>Elimina</code> per ciascuna riga, pulsante <code>Nuovo Studente</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_w06_materie_e_argomenti">5.6. W06 — Materie e Argomenti</h3>
+<h3 id="_w06_gestione_materie">5.6. W06 — Gestione Materie</h3>
+<div class="paragraph">
+<p>Tabella indipendente — nessuna chiave esterna.</p>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre>  ┌─────────────────────────┐
-  │  ←  Materie        [ + ]│
+  │  Materie                │
   ├─────────────────────────┤
+  │  Italiano               │
+  │  [ Modifica ][Elimina ] │
+  │  Matematica             │
+  │  [ Modifica ][Elimina ] │
+  │  Storia                 │
+  │  [ Modifica ][Elimina ] │
+  │  Informatica            │
+  │  [ Modifica ][Elimina ] │
+  │  Diritto                │
+  │  [ Modifica ][Elimina ] │
+  │  Economia politica      │
+  │  [ Modifica ][Elimina ] │
   │                         │
-  │  ▼ 📘 Italiano          │
-  │    • I Promessi Sposi   │
-  │      [+ Quesiti: 3]     │
-  │    • Il Barocco         │
-  │      [+ Quesiti: 1]     │
-  │    [ + Argomento ]      │
-  │                         │
-  │  ▶ 📗 Matematica        │
-  │  ▶ 📕 Storia            │
-  │  ▶ 📙 Fisica            │
-  │  ▶ 📓 Inglese           │
-  │                         │
-  │  [ + Nuova Materia ]    │
-  │                         │
+  │  [ NUOVA MATERIA      ] │
   ├─────────────────────────┤
-  │ 🏠  📅  📚  👥  ➕     │
+  │[Home][Cal][Mat][St][ + ]│
   └─────────────────────────┘</pre>
 </div>
+</div>
+<div class="paragraph">
+<p>Elementi: etichette (righe elenco), pulsanti <code>Modifica</code> e <code>Elimina</code> per ciascuna riga,
+pulsante <code>Nuova Materia</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_w07_gestione_materiali_didattici">5.7. W07 — Gestione Materiali Didattici</h3>
+<div class="paragraph">
+<p>Tabella indipendente — nessuna chiave esterna.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>  ┌─────────────────────────┐
+  │  Materiali Didattici    │
+  ├─────────────────────────┤
+  │  Filtra per tipo        │
+  │  [ Tutti i tipi     ▼ ] │
+  ├─────────────────────────┤
+  │  Analisi Matematica     │
+  │  libro                  │
+  │  [ Modifica ][Elimina ] │
+  │  Khan Academy           │
+  │  sito                   │
+  │  [ Modifica ][Elimina ] │
+  │  Storia moderna (art.)  │
+  │  articolo               │
+  │  [ Modifica ][Elimina ] │
+  │                         │
+  │  [ NUOVO MATERIALE    ] │
+  ├─────────────────────────┤
+  │[Home][Cal][Mat][St][ + ]│
+  └─────────────────────────┘</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Elementi: etichetta (titolo), menu a tendina (filtro per tipo), etichette (titolo e tipo
+per ciascuna riga), pulsanti <code>Modifica</code> e <code>Elimina</code> per ciascuna riga,
+pulsante <code>Nuovo Materiale</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_w08_form_materiale_didattico_inserimento_modifica">5.8. W08 — Form Materiale Didattico (Inserimento / Modifica)</h3>
+<div class="listingblock">
+<div class="content">
+<pre>  ┌─────────────────────────┐
+  │  Materiale Didattico    │
+  ├─────────────────────────┤
+  │  Tipo                   │
+  │  [ libro            ▼ ] │
+  │                         │
+  │  Titolo                 │
+  │  [_____________________]│
+  │                         │
+  │  Autore  (opzionale)    │
+  │  [_____________________]│
+  │                         │
+  │  URL  (opzionale)       │
+  │  [_____________________]│
+  │                         │
+  │  [       SALVA        ] │
+  │  [      ANNULLA       ] │
+  ├─────────────────────────┤
+  │[Home][Cal][Mat][St][ + ]│
+  └─────────────────────────┘</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Elementi: etichette, menu a tendina (tipo: libro/sito/articolo/rivista/video/podcast),
+3 inserimenti di testo (titolo, autore opz., URL opz.), 2 pulsanti (Salva, Annulla).</p>
 </div>
 <div style="page-break-after: always;"></div>
 </div>
@@ -1937,7 +2016,7 @@ La selezione degli argomenti supporta scelte multiple, purché tutti appartengan
 <h3 id="_diagramma_delle_classi_entity_relationship">6.1. Diagramma delle Classi (Entity-Relationship)</h3>
 <div class="imageblock">
 <div class="content">
-<img src="images/class-diagram.svg" alt="class diagram" width="1095" height="723">
+<img src="images/class-diagram.svg" alt="class diagram" width="1404" height="684">
 </div>
 </div>
 </div>
@@ -2086,7 +2165,7 @@ La selezione degli argomenti supporta scelte multiple, purché tutti appartengan
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Tabella 5. Tabella <code>InterrogazioneProgrammata</code></caption>
+<caption class="title">Tabella 5. Tabella <code>Interrogazione</code></caption>
 <colgroup>
 <col style="width: 25%;">
 <col style="width: 25%;">
@@ -2109,12 +2188,6 @@ La selezione degli argomenti supporta scelte multiple, purché tutti appartengan
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>numeroInterrogati</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Number</p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">N. massimo posti disponibili</p></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>data</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
 <td class="tableblock halign-left valign-top"></td>
@@ -2129,7 +2202,44 @@ La selezione degli argomenti supporta scelte multiple, purché tutti appartengan
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Tabella 6. Tabella <code>IntProgArgomento</code></caption>
+<caption class="title">Tabella 6. Tabella <code>InterrogazioneProgrammata</code></caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Campo</th>
+<th class="tableblock halign-left valign-top">Tipo</th>
+<th class="tableblock halign-left valign-top">Chiave</th>
+<th class="tableblock halign-left valign-top">Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Number</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PK (auto)</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>idInterrogazione</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Number</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FK</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">→ <code>Interrogazione.id</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>numeroInterrogati</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Number</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">N. massimo posti disponibili</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Tabella 7. Tabella <code>IntProgArgomento</code></caption>
 <colgroup>
 <col style="width: 25%;">
 <col style="width: 25%;">
@@ -2178,7 +2288,7 @@ Tutti gli argomenti di una stessa interrogazione devono appartenere alla stessa 
 </table>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Tabella 7. Tabella <code>AssegnazioneStudenti</code></caption>
+<caption class="title">Tabella 8. Tabella <code>AssegnazioneStudenti</code></caption>
 <colgroup>
 <col style="width: 25%;">
 <col style="width: 25%;">
@@ -2215,7 +2325,7 @@ Tutti gli argomenti di una stessa interrogazione devono appartenere alla stessa 
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Tabella 8. Tabella <code>MaterialeDidattico</code></caption>
+<caption class="title">Tabella 9. Tabella <code>MaterialeDidattico</code></caption>
 <colgroup>
 <col style="width: 25%;">
 <col style="width: 25%;">
@@ -2264,7 +2374,7 @@ Tutti gli argomenti di una stessa interrogazione devono appartenere alla stessa 
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Tabella 9. Tabella <code>Riferimento</code></caption>
+<caption class="title">Tabella 10. Tabella <code>Riferimento</code></caption>
 <colgroup>
 <col style="width: 25%;">
 <col style="width: 25%;">
@@ -2307,7 +2417,7 @@ Tutti gli argomenti di una stessa interrogazione devono appartenere alla stessa 
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Tabella 10. Tabella <code>InterrogazioneSvolta</code></caption>
+<caption class="title">Tabella 11. Tabella <code>InterrogazioneSvolta</code></caption>
 <colgroup>
 <col style="width: 25%;">
 <col style="width: 25%;">
@@ -2333,24 +2443,18 @@ Tutti gli argomenti di una stessa interrogazione devono appartenere alla stessa 
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>idInterrogazione</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Number</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">FK</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">→ <code>Interrogazione.id</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>idInterrogazioneProgrammata</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Number</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FK</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">→ <code>InterrogazioneProgrammata.id</code> — facoltativo (<code>null</code> se non pianificata)</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Formato <code>gg/mm/aaaa</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ora</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Formato <code>hh:mm</code></p></td>
 </tr>
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Tabella 11. Tabella <code>IntSvoltaArgomento</code></caption>
+<caption class="title">Tabella 12. Tabella <code>IntSvoltaArgomento</code></caption>
 <colgroup>
 <col style="width: 25%;">
 <col style="width: 25%;">
@@ -2387,7 +2491,7 @@ Tutti gli argomenti di una stessa interrogazione devono appartenere alla stessa 
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Tabella 12. Tabella <code>StudentiInterrogati</code></caption>
+<caption class="title">Tabella 13. Tabella <code>StudentiInterrogati</code></caption>
 <colgroup>
 <col style="width: 25%;">
 <col style="width: 25%;">
@@ -2685,7 +2789,7 @@ Il calendario condiviso trasparente riduce l&#8217;ansia da prestazione e aument
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">UC10</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">RF-10</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">L&#8217;interrogazione svolta deve registrare data, ora, almeno un argomento, almeno uno studente interrogato, e opzionalmente il collegamento a un&#8217;interrogazione programmata.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">L&#8217;interrogazione svolta deve registrare data e ora nell&#8217;entità <code>Interrogazione</code>, almeno un argomento, almeno uno studente interrogato, e opzionalmente il collegamento a un&#8217;interrogazione programmata.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">UC11</p></td>
@@ -2743,7 +2847,7 @@ In assenza di questi strumenti, le rappresentazioni testuali nei blocchi <code>[
 <div id="footer">
 <div id="footer-text">
 Version 1.0<br>
-Last updated 2026-04-14 13:15:27 +0200
+Last updated 2026-04-17 11:48:55 +0200
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>

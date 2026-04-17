@@ -46,11 +46,17 @@ CREATE TABLE IF NOT EXISTS Riferimento (
   FOREIGN KEY (idMateriale) REFERENCES MaterialeDidattico(id)
 );
 
-CREATE TABLE IF NOT EXISTS InterrogazioneProgrammata (
+CREATE TABLE IF NOT EXISTS Interrogazione (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
-  numeroInterrogati INTEGER NOT NULL CHECK (numeroInterrogati > 0),
   data TEXT NOT NULL,
   ora TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS InterrogazioneProgrammata (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  idInterrogazione INTEGER NOT NULL,
+  numeroInterrogati INTEGER NOT NULL CHECK (numeroInterrogati > 0),
+  FOREIGN KEY (idInterrogazione) REFERENCES Interrogazione(id)
 );
 
 CREATE TABLE IF NOT EXISTS IntProgArgomento (
@@ -73,10 +79,10 @@ CREATE TABLE IF NOT EXISTS AssegnazioneStudenti (
 
 CREATE TABLE IF NOT EXISTS InterrogazioneSvolta (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
-  idInterrogazione INTEGER DEFAULT NULL,
-  data TEXT NOT NULL,
-  ora TEXT NOT NULL,
-  FOREIGN KEY (idInterrogazione) REFERENCES InterrogazioneProgrammata(id)
+  idInterrogazione INTEGER NOT NULL,
+  idInterrogazioneProgrammata INTEGER DEFAULT NULL,
+  FOREIGN KEY (idInterrogazione) REFERENCES Interrogazione(id),
+  FOREIGN KEY (idInterrogazioneProgrammata) REFERENCES InterrogazioneProgrammata(id)
 );
 
 CREATE TABLE IF NOT EXISTS IntSvoltaArgomento (
