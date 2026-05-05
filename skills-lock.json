@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "skills": {
+    "docs-write": {
+      "source": "metabase/metabase",
+      "sourceType": "github",
+      "computedHash": "260a360be89f6d088578d44936cae8c5a65408f2af1fdd23154e0093646f7dfc"
+    }
+  }
+}
